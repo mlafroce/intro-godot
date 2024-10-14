@@ -1,0 +1,16 @@
+[gd_scene load_steps=5 format=3 uid="uid://c37y5kfbu1blc"]
+
+[ext_resource type="Shader" path="res://shaders/glow.gdshader" id="1_4756i"]
+[ext_resource type="Texture2D" uid="uid://d3n22q547ytvc" path="res://assets/spaceship.png" id="1_mxfk1"]
+[ext_resource type="Script" path="res://scripts/spaceship.gd" id="2_ygf85"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0m1ir"]
+shader = ExtResource("1_4756i")
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Spaceship" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_0m1ir")
+position = Vector2(576, 338)
+texture = ExtResource("1_mxfk1")
+script = ExtResource("2_ygf85")
