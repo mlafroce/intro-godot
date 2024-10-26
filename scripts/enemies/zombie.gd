@@ -3,7 +3,8 @@ extends RigidBody2D
 @onready var player = get_tree().get_root().find_child("Player",true,false)
 var screen_size
 var velocity
-const LINEAR_VELOCITY = 45
+var hp = 10
+const LINEAR_VELOCITY = 15
 const VELOCITY_VARIATION = .08
 var velocity_variation
 
@@ -30,6 +31,17 @@ func _process(delta: float) -> void:
 
 func _on_zombie_man_visible_on_screen_notifier_screen_exited() -> void:
 	hide()
+	queue_free()
+
+func hit() -> bool:
+	hp -= 1
+	if hp == 0:
+		die()
+	return hp >= 0
+
+func die() -> void:
+	self.get_node("ZombieManSprite").play("death")
+	await get_node("ZombieManSprite").animation_finished
 	queue_free()
 
 #func _on_player_death_body_entered(body):

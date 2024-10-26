@@ -22,7 +22,6 @@ func new_game():
 	get_node("Player").start($StartPosition.position)
 	$StartTimer.start()
 
-
 func _on_enemy_timer_timeout() -> void:
 	for i in range(30):
 		# Create a new instance of the enemy scene.
