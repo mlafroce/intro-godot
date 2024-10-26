@@ -1,3 +1,5 @@
+class_name Spaceship
+
 extends Sprite2D
 
 var speed = 200;

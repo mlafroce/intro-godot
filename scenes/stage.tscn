@@ -1,0 +1,25 @@
+[gd_scene load_steps=7 format=3 uid="uid://c37y5kfbu1blc"]
+
+[ext_resource type="Script" path="res://scripts/scenario.gd" id="1_n11tu"]
+[ext_resource type="Shader" path="res://shaders/glow.gdshader" id="2_ucmdv"]
+[ext_resource type="Texture2D" uid="uid://d3n22q547ytvc" path="res://assets/spaceship.png" id="3_j2h6w"]
+[ext_resource type="Script" path="res://scripts/spaceship.gd" id="4_swdb7"]
+[ext_resource type="PackedScene" uid="uid://nwf6jtm1vsq6" path="res://zombie.tscn" id="5_boog6"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0m1ir"]
+shader = ExtResource("2_ucmdv")
+
+[node name="Stage" type="Node2D"]
+script = ExtResource("1_n11tu")
+
+[node name="Spaceship" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_0m1ir")
+position = Vector2(575, 615)
+texture = ExtResource("3_j2h6w")
+script = ExtResource("4_swdb7")
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[node name="Zombie" parent="." instance=ExtResource("5_boog6")]
+position = Vector2(610, 231)
