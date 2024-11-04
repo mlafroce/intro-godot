@@ -8,60 +8,45 @@ var screen_size
 func _ready():
 	screen_size = get_viewport_rect().size
 	hide()
-	$AnimatedSprite2D.animation = "idle"
-	$AnimatedSprite2D.play()
+	$PlayerSprite.animation = "idle"
+	$PlayerSprite.play()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	var velocity = Vector2.ZERO # The player's movement vector.
-	if Input.is_action_pressed("move_right"):
-		velocity.x += 1
-	if Input.is_action_pressed("move_left"):
-		velocity.x -= 1
-	if Input.is_action_pressed("move_down"):
-		velocity.y += 1
-	if Input.is_action_pressed("move_up"):
-		velocity.y -= 1
-	
-	if Input.is_action_just_pressed("move_right"):
-		$AnimatedSprite2D.animation = "tilt_right"
-		$AnimatedSprite2D.play()
-	if Input.is_action_just_released("move_right"):
-		$AnimatedSprite2D.animation = "tilt_right"
-		$AnimatedSprite2D.play_backwards()
-	if Input.is_action_just_pressed("move_left"):
-		$AnimatedSprite2D.animation = "tilt_left"
-		$AnimatedSprite2D.play()
-	if Input.is_action_just_released("move_left"):
-		$AnimatedSprite2D.animation = "tilt_left"
-		$AnimatedSprite2D.play_backwards()
-		
+	if get_node("PlayerSprite").animation != "death":
+		if Input.is_action_pressed("move_right"):
+			velocity.x += 1
+			$PlayerSprite.flip_h = false
+		if Input.is_action_pressed("move_left"):
+			velocity.x -= 1
+			$PlayerSprite.flip_h = true
+		if Input.is_action_pressed("move_down"):
+			velocity.y += 1
+		if Input.is_action_pressed("move_up"):
+			velocity.y -= 1
 
-	if $AnimatedSprite2D.animation_finished:
-		if velocity.x == 0 and $AnimatedSprite2D.animation != "idle" and $AnimatedSprite2D.animation_finished:
-			$AnimatedSprite2D.animation = "idle"
-			$AnimatedSprite2D.play()
-		elif velocity.x > 0 and $AnimatedSprite2D.animation != "right":
-			$AnimatedSprite2D.animation = "right"
-			$AnimatedSprite2D.play()
-		elif velocity.x < 0 and $AnimatedSprite2D.animation != "left":
-			$AnimatedSprite2D.animation = "left"
-			$AnimatedSprite2D.play()
-	
-	if velocity.length() > 0:
-		velocity = velocity.normalized() * speed
-	
-	position += velocity * delta
-	position = position.clamp(Vector2.ZERO, screen_size)
+		if velocity.length() > 0:
+			velocity = velocity.normalized() * speed
+			$PlayerSprite.animation = "move"
+		else:
+			$PlayerSprite.animation = "idle"
+		$PlayerSprite.play()
+		
+		position += velocity * delta
+		position = position.clamp(Vector2.ZERO, screen_size)
 
 
 func _on_body_entered(body: Node2D) -> void:
+	print("HIT")
+	get_node("PlayerSprite").play("death")
+	await get_node("PlayerSprite").animation_finished
 	hide() # Player disappears after being hit.
 	hit.emit()
 	# Must be deferred as we can't change physics properties on a physics callback.
-	$CollisionShape2D.set_deferred("disabled", true)
+	$PlayerCollisionShape.set_deferred("disabled", true)
 	
 func start(pos):
 	position = pos
 	show()
-	$CollisionShape2D.disabled = false
+	$PlayerCollisionShape.disabled = false

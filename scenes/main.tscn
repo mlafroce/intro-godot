@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://dem27hqanoc3j"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_de0eh"]
-[ext_resource type="PackedScene" uid="uid://crwpd3w1la5mu" path="res://scenes/player.tscn" id="1_prkgt"]
-[ext_resource type="PackedScene" uid="uid://djhfgb8tou5jd" path="res://scenes/enemy.tscn" id="2_nnjxa"]
+[ext_resource type="PackedScene" uid="uid://crwpd3w1la5mu" path="res://scenes/player/player.tscn" id="1_prkgt"]
+[ext_resource type="PackedScene" uid="uid://dh72ggujv5vbf" path="res://scenes/enemies/zombie.tscn" id="2_s8sdq"]
 
 [sub_resource type="Curve2D" id="Curve2D_yuogk"]
 _data = {
@@ -12,25 +12,29 @@ point_count = 5
 
 [node name="Main" type="Node"]
 script = ExtResource("1_de0eh")
-enemy_scene = ExtResource("2_nnjxa")
-
-[node name="Player" parent="." instance=ExtResource("1_prkgt")]
+enemy_scene = ExtResource("2_s8sdq")
 
 [node name="EnemyTimer" type="Timer" parent="."]
-wait_time = 0.5
+wait_time = 10.0
 
 [node name="StartTimer" type="Timer" parent="."]
 wait_time = 2.0
 one_shot = true
 
 [node name="StartPosition" type="Marker2D" parent="."]
-position = Vector2(240, 450)
+position = Vector2(500, 300)
 
 [node name="EnemyPath" type="Path2D" parent="."]
 curve = SubResource("Curve2D_yuogk")
 
 [node name="EnemySpawnLocation" type="PathFollow2D" parent="EnemyPath"]
 
-[connection signal="hit" from="Player" to="." method="game_over"]
+[node name="Mobs" type="Node2D" parent="."]
+
+[node name="Zombie" parent="Mobs" instance=ExtResource("2_s8sdq")]
+
+[node name="Player" parent="." instance=ExtResource("1_prkgt")]
+
 [connection signal="timeout" from="EnemyTimer" to="." method="_on_enemy_timer_timeout"]
 [connection signal="timeout" from="StartTimer" to="." method="_on_start_timer_timeout"]
+[connection signal="hit" from="Player" to="." method="game_over"]

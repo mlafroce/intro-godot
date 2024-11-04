@@ -1,0 +1,143 @@
+[gd_scene load_steps=20 format=3 uid="uid://dh72ggujv5vbf"]
+
+[ext_resource type="Texture2D" uid="uid://bl8gb8kr4abiw" path="res://assets/sprites/zombie_man/Walk.png" id="1_65neu"]
+[ext_resource type="Script" path="res://scripts/enemies/zombie.gd" id="1_a6cme"]
+[ext_resource type="Texture2D" uid="uid://ckobmi1yv0vi4" path="res://assets/sprites/zombie_man/Dead.png" id="2_dv5ug"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6d44b"]
+atlas = ExtResource("2_dv5ug")
+region = Rect2(0, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0xi37"]
+atlas = ExtResource("2_dv5ug")
+region = Rect2(96, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u1iid"]
+atlas = ExtResource("2_dv5ug")
+region = Rect2(192, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j03yi"]
+atlas = ExtResource("2_dv5ug")
+region = Rect2(288, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e34jk"]
+atlas = ExtResource("2_dv5ug")
+region = Rect2(384, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qihfx"]
+atlas = ExtResource("1_65neu")
+region = Rect2(32, 0, 32, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bqxpg"]
+atlas = ExtResource("1_65neu")
+region = Rect2(128, 0, 32, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bxsah"]
+atlas = ExtResource("1_65neu")
+region = Rect2(224, 0, 32, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ucaxu"]
+atlas = ExtResource("1_65neu")
+region = Rect2(320, 0, 32, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ohdk3"]
+atlas = ExtResource("1_65neu")
+region = Rect2(416, 0, 32, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lksre"]
+atlas = ExtResource("1_65neu")
+region = Rect2(512, 0, 32, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lr2ra"]
+atlas = ExtResource("1_65neu")
+region = Rect2(608, 0, 32, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_70l7a"]
+atlas = ExtResource("1_65neu")
+region = Rect2(704, 0, 32, 96)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_cn88e"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6d44b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0xi37")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u1iid")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j03yi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e34jk")
+}],
+"loop": false,
+"name": &"death",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qihfx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bqxpg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bxsah")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ucaxu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ohdk3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lksre")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lr2ra")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_70l7a")
+}],
+"loop": true,
+"name": &"move",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mgbgb"]
+size = Vector2(16, 57)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ar5m8"]
+size = Vector2(14, 36)
+
+[node name="Zombie" type="RigidBody2D"]
+position = Vector2(0, -2)
+gravity_scale = 0.0
+script = ExtResource("1_a6cme")
+metadata/_edit_group_ = true
+
+[node name="ZombieManSprite" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.6, 0.6)
+sprite_frames = SubResource("SpriteFrames_cn88e")
+animation = &"move"
+
+[node name="ZombieManVisibleOnScreenNotifier" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(3.228, 9.188)
+scale = Vector2(0.47725, 1.68475)
+
+[node name="ZombieManCollision" type="CollisionShape2D" parent="."]
+position = Vector2(3, 9.48)
+scale = Vector2(0.6, 0.6)
+shape = SubResource("RectangleShape2D_mgbgb")
+
+[node name="BulletDeath" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BulletDeath"]
+position = Vector2(4, 9)
+shape = SubResource("RectangleShape2D_ar5m8")
+
+[connection signal="screen_exited" from="ZombieManVisibleOnScreenNotifier" to="." method="_on_zombie_man_visible_on_screen_notifier_screen_exited"]
