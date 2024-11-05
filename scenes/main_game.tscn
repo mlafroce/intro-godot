@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://c37y5kfbu1blc"]
+
+[ext_resource type="PackedScene" uid="uid://cjmj0l5wppk8d" path="res://scenes/player.tscn" id="1_ru6yb"]
+[ext_resource type="Texture2D" uid="uid://dv0i5uvteqcig" path="res://assets/orange_vortex.png" id="2_tirmx"]
+
+[node name="MainGame" type="Node2D"]
+y_sort_enabled = true
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_left = -1038.0
+offset_top = -1118.0
+offset_right = 1632.0
+offset_bottom = 1552.0
+texture = ExtResource("2_tirmx")
+stretch_mode = 1
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = -30
+follow_viewport_enabled = true
+
+[node name="Player" parent="." instance=ExtResource("1_ru6yb")]
+position = Vector2(240, 220)
