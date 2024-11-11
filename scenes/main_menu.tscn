@@ -1,0 +1,88 @@
+[gd_scene load_steps=7 format=3 uid="uid://b3ekpu4xd8or0"]
+
+[ext_resource type="Texture2D" uid="uid://dv0i5uvteqcig" path="res://assets/orange_vortex.png" id="1_1qu5k"]
+[ext_resource type="Script" path="res://scripts/main_menu.gd" id="1_63lci"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ln4hj"]
+texture = ExtResource("1_1qu5k")
+modulate_color = Color(0.834614, 0.834614, 0.834614, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7p28s"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jly3q"]
+bg_color = Color(0.303233, 0.303233, 0.303233, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+shadow_color = Color(0, 0, 0, 0.372549)
+shadow_size = 5
+shadow_offset = Vector2(0, 3)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vhcca"]
+bg_color = Color(0.10748, 0.10748, 0.10748, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+shadow_color = Color(0, 0, 0, 0.372549)
+shadow_size = 5
+shadow_offset = Vector2(0, 3)
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_63lci")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_ln4hj")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -107.0
+offset_top = 146.0
+offset_right = 107.0
+offset_bottom = 237.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 10
+
+[node name="StartButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 28
+theme_override_styles/focus = SubResource("StyleBoxEmpty_7p28s")
+theme_override_styles/hover = SubResource("StyleBoxFlat_jly3q")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_vhcca")
+theme_override_styles/normal = SubResource("StyleBoxFlat_vhcca")
+text = "Start
+"
+
+[node name="ExitButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 28
+theme_override_styles/focus = SubResource("StyleBoxEmpty_7p28s")
+theme_override_styles/hover = SubResource("StyleBoxFlat_jly3q")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_vhcca")
+theme_override_styles/normal = SubResource("StyleBoxFlat_vhcca")
+text = "Exit
+"
+
+[connection signal="pressed" from="VBoxContainer/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/ExitButton" to="." method="_on_exit_button_pressed"]
