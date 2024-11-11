@@ -3,7 +3,7 @@ extends RigidBody2D
 @onready var player = get_tree().get_root().find_child("Player",true,false)
 var screen_size
 var velocity
-var hp = 10
+var hp = 1
 const LINEAR_VELOCITY = 15
 const VELOCITY_VARIATION = .08
 var velocity_variation
@@ -44,9 +44,7 @@ func die() -> void:
 	await get_node("ZombieManSprite").animation_finished
 	queue_free()
 
-#func _on_player_death_body_entered(body):
-	#if body.name == "Bullet":
-		#get_node("ZombieManSprite").play("death")
-		#await get_node("ZombieManSprite").animation_finished
-		#self.queue_free()
+func _on_bullet_death_body_entered(body):
+	if body.name == "simpleBullet" or body.name == "laserBullet":
+		die()
 	

@@ -1,0 +1,170 @@
+[gd_scene load_steps=19 format=3 uid="uid://c6i141rbpajt"]
+
+[ext_resource type="Script" path="res://scripts/player.gd" id="1_etoyw"]
+[ext_resource type="Texture2D" uid="uid://ds3rg55dxv76s" path="res://assets/bullet.png" id="2_vewiq"]
+[ext_resource type="Texture2D" path="res://assets/maguito_prueba.png" id="3_72c6d"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xxt57"]
+radius = 32.0
+height = 110.0
+
+[sub_resource type="Animation" id="Animation_bsgk8"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MaguitoSketch:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_4674x"]
+resource_name = "move_down_left"
+length = 0.1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MaguitoSketch:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+
+[sub_resource type="Animation" id="Animation_1s7k0"]
+resource_name = "move_down_right"
+length = 0.1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MaguitoSketch:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_twip4"]
+resource_name = "move_up_left"
+length = 0.1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MaguitoSketch:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [3]
+}
+
+[sub_resource type="Animation" id="Animation_ctknf"]
+resource_name = "move_up_right"
+length = 0.1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MaguitoSketch:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [2]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_182m8"]
+_data = {
+"RESET": SubResource("Animation_bsgk8"),
+"move_down_left": SubResource("Animation_4674x"),
+"move_down_right": SubResource("Animation_1s7k0"),
+"move_up_left": SubResource("Animation_twip4"),
+"move_up_right": SubResource("Animation_ctknf")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_m6v4o"]
+animation = &"move_up_left"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_hqd1g"]
+animation = &"move_down_left"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_82bal"]
+animation = &"move_down_right"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_f3cc7"]
+animation = &"move_up_right"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_hi8t8"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_m6v4o")
+blend_point_0/pos = Vector2(-1, -1)
+blend_point_1/node = SubResource("AnimationNodeAnimation_hqd1g")
+blend_point_1/pos = Vector2(-1, 1)
+blend_point_2/node = SubResource("AnimationNodeAnimation_82bal")
+blend_point_2/pos = Vector2(1, 1)
+blend_point_3/node = SubResource("AnimationNodeAnimation_f3cc7")
+blend_point_3/pos = Vector2(1, -1)
+blend_mode = 1
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_7gw3g"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_8g4hp"]
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_6ke7o"]
+states/End/position = Vector2(736, 95)
+states/Idle/node = SubResource("AnimationNodeBlendSpace2D_hi8t8")
+states/Idle/position = Vector2(577, 105)
+states/Start/position = Vector2(403, 95)
+transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_7gw3g"), "Idle", "End", SubResource("AnimationNodeStateMachineTransition_8g4hp")]
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_etoyw")
+
+[node name="Sombra" type="Sprite2D" parent="."]
+modulate = Color(0.144063, 0.144063, 0.144063, 1)
+position = Vector2(0, 111)
+scale = Vector2(0.962963, 0.697153)
+texture = ExtResource("2_vewiq")
+
+[node name="MaguitoSketch" type="Sprite2D" parent="."]
+position = Vector2(-1.90735e-06, 1.90735e-06)
+scale = Vector2(0.448, 0.448)
+texture = ExtResource("3_72c6d")
+hframes = 4
+
+[node name="PlayerCollisionShape" type="CollisionShape2D" parent="."]
+position = Vector2(0, 8)
+shape = SubResource("CapsuleShape2D_xxt57")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="PlayerAnimation" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_182m8")
+}
+autoplay = "move_down_right"
+
+[node name="PlayerAnimationTree" type="AnimationTree" parent="."]
+unique_name_in_owner = true
+root_node = NodePath("%PlayerAnimationTree/..")
+tree_root = SubResource("AnimationNodeStateMachine_6ke7o")
+anim_player = NodePath("../PlayerAnimation")
+parameters/Idle/blend_position = Vector2(-0.344095, -0.681416)

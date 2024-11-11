@@ -1,4 +1,4 @@
-class_name simpleBullet
+class_name laserBullet
 
 extends Area2D
 
@@ -15,9 +15,10 @@ func _physics_process(delta: float) -> void:
 	move(delta)
 
 func on_body_entered(body: Node2D):
-	if body.has_method("hit") and body.visible: 
+	if body.has_method("hit") and body.visible:
 		if body.hit():
-			queue_free()
+			pass
+			#queue_free()
 
 func move(delta: float):
 	position += self.direction * delta * BULLET_SPEED

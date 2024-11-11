@@ -141,3 +141,4 @@ position = Vector2(4, 9)
 shape = SubResource("RectangleShape2D_ar5m8")
 
 [connection signal="screen_exited" from="ZombieManVisibleOnScreenNotifier" to="." method="_on_zombie_man_visible_on_screen_notifier_screen_exited"]
+[connection signal="body_entered" from="BulletDeath" to="." method="_on_bullet_death_body_entered"]
