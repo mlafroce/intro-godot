@@ -5,7 +5,7 @@
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_x5gir"]
 
-[node name="Bullet" type="Area2D"]
+[node name="SimpleBullet" type="Area2D"]
 collision_layer = 0
 script = ExtResource("1_osonc")
 

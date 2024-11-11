@@ -8,7 +8,9 @@ const Weapon = preload("res://scripts/player/weapon.gd")
 @export var speed = 200
 var screen_size
 var last_direction = Vector2(1, 0)
+var velocity: Vector2 = Vector2.ZERO
 var weapon = Weapon.new()
+var weaponDelta: float = 0.0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -19,23 +21,12 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	var velocity = Vector2.ZERO # The player's movement vector.
 	if get_node("PlayerSprite").animation == "death":
 		return
+	self.weaponDelta += delta
+	self.velocity = Vector2.ZERO # The player's movement vector.
 
-	if Input.is_action_pressed("move_right"):
-		velocity.x += 1
-		$PlayerSprite.flip_h = false
-	if Input.is_action_pressed("move_left"):
-		velocity.x -= 1
-		$PlayerSprite.flip_h = true
-	if Input.is_action_pressed("move_down"):
-		velocity.y += 1
-	if Input.is_action_pressed("move_up"):
-		velocity.y -= 1
-	
-	if Input.is_key_pressed(KEY_SPACE):
-		weapon.shoot(self)
+	process_input(delta)
 
 	if velocity.length() > 0:
 		velocity = velocity.normalized() * speed
@@ -48,6 +39,24 @@ func _process(delta: float) -> void:
 	position += velocity * delta
 	position = position.clamp(Vector2.ZERO, screen_size)
 
+func process_input(delta: float) -> void:
+	if Input.is_action_pressed("move_right"):
+		self.velocity.x += 1
+		$PlayerSprite.flip_h = false
+	if Input.is_action_pressed("move_left"):
+		self.velocity.x -= 1
+		$PlayerSprite.flip_h = true
+	if Input.is_action_pressed("move_down"):
+		self.velocity.y += 1
+	if Input.is_action_pressed("move_up"):
+		self.velocity.y -= 1
+	
+	if Input.is_key_pressed(KEY_C):
+		self.weapon.rotateWeapon()
+	
+	if Input.is_key_pressed(KEY_SPACE):
+		self.weapon.shoot(weaponDelta, self)
+		self.weaponDelta = 0.0
 
 func _on_body_entered(body: Node2D) -> void:
 	print("HIT")

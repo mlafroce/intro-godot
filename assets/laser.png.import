@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d3n22q547ytvc"
-path="res://.godot/imported/spaceship.png-58498873603dbb319d28b42f0ee36280.ctex"
+uid="uid://bhmgwmqkexbls"
+path="res://.godot/imported/laser.png-af9ca9427a51d96a36a733a4aa4be8b2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/spaceship.png"
-dest_files=["res://.godot/imported/spaceship.png-58498873603dbb319d28b42f0ee36280.ctex"]
+source_file="res://assets/laser.png"
+dest_files=["res://.godot/imported/laser.png-af9ca9427a51d96a36a733a4aa4be8b2.ctex"]
 
 [params]
 
