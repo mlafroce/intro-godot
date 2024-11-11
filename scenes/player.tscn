@@ -1,8 +1,9 @@
-[gd_scene load_steps=19 format=3 uid="uid://cjmj0l5wppk8d"]
+[gd_scene load_steps=20 format=3 uid="uid://cjmj0l5wppk8d"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_etoyw"]
-[ext_resource type="Texture2D" uid="uid://b68d4c161ix1x" path="res://assets/bullet.png" id="2_vewiq"]
-[ext_resource type="Texture2D" uid="uid://cu0ycqf1cycn3" path="res://assets/maguito_prueba.png" id="3_72c6d"]
+[ext_resource type="Texture2D" uid="uid://c1ohpgf3f5n4l" path="res://assets/bullet.png" id="2_vewiq"]
+[ext_resource type="Texture2D" uid="uid://dlypfcr05wb6d" path="res://assets/maguito_prueba.png" id="3_72c6d"]
+[ext_resource type="PackedScene" uid="uid://cl60rxc8515gc" path="res://scenes/gun.tscn" id="4_q3wr0"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xxt57"]
 radius = 32.0
@@ -168,3 +169,5 @@ root_node = NodePath("%PlayerAnimationTree/..")
 tree_root = SubResource("AnimationNodeStateMachine_6ke7o")
 anim_player = NodePath("../PlayerAnimation")
 parameters/Idle/blend_position = Vector2(-0.344095, -0.681416)
+
+[node name="Gun" parent="." instance=ExtResource("4_q3wr0")]

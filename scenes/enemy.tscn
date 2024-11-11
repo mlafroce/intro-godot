@@ -1,0 +1,129 @@
+[gd_scene load_steps=16 format=3 uid="uid://c2r3fn202aufc"]
+
+[ext_resource type="Texture2D" uid="uid://d1c7l4g7y37w6" path="res://assets/enemy_placeholder.png" id="1_eqjiv"]
+[ext_resource type="Script" path="res://scripts/enemy.gd" id="1_o5v0m"]
+[ext_resource type="Texture2D" uid="uid://c1ohpgf3f5n4l" path="res://assets/bullet.png" id="2_ivh60"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hkt5t"]
+radius = 27.0
+height = 94.0
+
+[sub_resource type="Animation" id="Animation_dgi6f"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlaceholderSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_bpxql"]
+resource_name = "walk_left"
+length = 0.1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlaceholderSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_4bri3"]
+resource_name = "walk_right"
+length = 0.1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlaceholderSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_pwm1e"]
+_data = {
+"RESET": SubResource("Animation_dgi6f"),
+"walk_left": SubResource("Animation_bpxql"),
+"walk_right": SubResource("Animation_4bri3")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_fcutl"]
+animation = &"walk_left"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_662ih"]
+animation = &"walk_right"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_s5d5y"]
+animation = &"walk_right"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_f4qhp"]
+animation = &"walk_left"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_3uis0"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_fcutl")
+blend_point_0/pos = Vector2(-1, -1)
+blend_point_1/node = SubResource("AnimationNodeAnimation_662ih")
+blend_point_1/pos = Vector2(1, 1)
+blend_point_2/node = SubResource("AnimationNodeAnimation_s5d5y")
+blend_point_2/pos = Vector2(1, -1)
+blend_point_3/node = SubResource("AnimationNodeAnimation_f4qhp")
+blend_point_3/pos = Vector2(-1, 1)
+blend_mode = 1
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_pgrby"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_bhwaq"]
+states/Walk/node = SubResource("AnimationNodeBlendSpace2D_3uis0")
+states/Walk/position = Vector2(535, 127)
+transitions = ["Start", "Walk", SubResource("AnimationNodeStateMachineTransition_pgrby")]
+graph_offset = Vector2(-6, -21)
+
+[node name="Enemy" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 3
+script = ExtResource("1_o5v0m")
+
+[node name="Sombra" type="Sprite2D" parent="."]
+modulate = Color(0.145098, 0.145098, 0.145098, 1)
+position = Vector2(0, 67)
+scale = Vector2(0.777778, 0.554134)
+texture = ExtResource("2_ivh60")
+
+[node name="PlaceholderSprite" type="Sprite2D" parent="."]
+scale = Vector2(0.331492, 0.331492)
+texture = ExtResource("1_eqjiv")
+hframes = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 31)
+shape = SubResource("CapsuleShape2D_hkt5t")
+
+[node name="EnemyAnimation" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_pwm1e")
+}
+
+[node name="EnemyAnimationTree" type="AnimationTree" parent="."]
+unique_name_in_owner = true
+root_node = NodePath("%EnemyAnimationTree/..")
+tree_root = SubResource("AnimationNodeStateMachine_bhwaq")
+anim_player = NodePath("../EnemyAnimation")
+parameters/Walk/blend_position = Vector2(0.994902, 1)
