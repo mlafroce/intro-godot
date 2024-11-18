@@ -126,6 +126,8 @@ position = Vector2(0, 57)
 shape = SubResource("CircleShape2D_8x0bl")
 
 [node name="Camera2D" type="Camera2D" parent="."]
+process_callback = 0
+position_smoothing_enabled = true
 
 [node name="PlayerAnimation" type="AnimationPlayer" parent="."]
 libraries = {
