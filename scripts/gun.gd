@@ -1,13 +1,39 @@
 extends Area2D
 
+@onready var default_pos = %WandSprite.get_position()
+
+var time = 0.0
+var amplitude = 4.0
+var frequency = 8.0
+
+func _process(delta: float) -> void:
+	%WandSprite.scale.x = move_toward(%WandSprite.scale.x, 0.455, 3 * delta)
+	%WandSprite.scale.y = move_toward(%WandSprite.scale.y, 0.455, 3 * delta)
+	
+
 func _physics_process(delta: float) -> void:
 	var enemies_in_range: Array[Node2D] = get_overlapping_bodies()
+	time += delta * frequency
 
 	if !enemies_in_range.is_empty():
 		var target_enemy: CharacterBody2D = enemies_in_range.front()
-		look_at(target_enemy.global_position)
+		%WeaponPivot.look_at(target_enemy.global_position)
+		%WandSprite.global_position = %SpritePosition.global_position
+		%WandSprite.global_position = (%SpritePosition.global_position + Vector2(0, sin(time) * amplitude))
+		
+		var pos_h = %WandSprite.position.normalized()				
+		%WandAnimationTree.set("parameters/blend_position", pos_h)
+	else:
+		%WeaponPivot.look_at(get_global_mouse_position())
+		%WandSprite.global_position = %SpritePosition.global_position
+		%WandSprite.global_position = (%SpritePosition.global_position + Vector2(0, sin(time) * amplitude))
+		
+		var pos_h = %WandSprite.position.normalized()				
+		%WandAnimationTree.set("parameters/blend_position", pos_h)
 
 func shoot():
+	%WandSprite.scale = Vector2(0.650, 0.3)
+	
 	const BULLET = preload("res://scenes/bullet.tscn")
 	var new_bullet = BULLET.instantiate()
 	
@@ -18,4 +44,7 @@ func shoot():
 
 
 func _on_timer_timeout() -> void:
-	shoot()
+	var enemies_in_range: Array[Node2D] = get_overlapping_bodies()
+
+	if !enemies_in_range.is_empty():
+		shoot()

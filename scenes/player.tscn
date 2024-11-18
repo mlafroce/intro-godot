@@ -1,13 +1,12 @@
-[gd_scene load_steps=20 format=3 uid="uid://cjmj0l5wppk8d"]
+[gd_scene load_steps=19 format=3 uid="uid://cjmj0l5wppk8d"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_etoyw"]
 [ext_resource type="Texture2D" uid="uid://c1ohpgf3f5n4l" path="res://assets/bullet.png" id="2_vewiq"]
-[ext_resource type="Texture2D" uid="uid://dlypfcr05wb6d" path="res://assets/maguito_prueba.png" id="3_72c6d"]
+[ext_resource type="Texture2D" uid="uid://di461qqwniyh2" path="res://assets/mago_1.png" id="3_udskb"]
 [ext_resource type="PackedScene" uid="uid://cl60rxc8515gc" path="res://scenes/gun.tscn" id="4_q3wr0"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xxt57"]
-radius = 32.0
-height = 110.0
+[sub_resource type="CircleShape2D" id="CircleShape2D_8x0bl"]
+radius = 37.6962
 
 [sub_resource type="Animation" id="Animation_bsgk8"]
 length = 0.001
@@ -24,25 +23,8 @@ tracks/0/keys = {
 "values": [0]
 }
 
-[sub_resource type="Animation" id="Animation_4674x"]
-resource_name = "move_down_left"
-length = 0.1
-step = 0.1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("MaguitoSketch:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [1]
-}
-
 [sub_resource type="Animation" id="Animation_1s7k0"]
-resource_name = "move_down_right"
+resource_name = "move_left"
 length = 0.1
 step = 0.1
 tracks/0/type = "value"
@@ -58,8 +40,8 @@ tracks/0/keys = {
 "values": [0]
 }
 
-[sub_resource type="Animation" id="Animation_twip4"]
-resource_name = "move_up_left"
+[sub_resource type="Animation" id="Animation_4674x"]
+resource_name = "move_right"
 length = 0.1
 step = 0.1
 tracks/0/type = "value"
@@ -72,46 +54,27 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [3]
-}
-
-[sub_resource type="Animation" id="Animation_ctknf"]
-resource_name = "move_up_right"
-length = 0.1
-step = 0.1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("MaguitoSketch:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [2]
+"values": [1]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_182m8"]
 _data = {
 "RESET": SubResource("Animation_bsgk8"),
-"move_down_left": SubResource("Animation_4674x"),
-"move_down_right": SubResource("Animation_1s7k0"),
-"move_up_left": SubResource("Animation_twip4"),
-"move_up_right": SubResource("Animation_ctknf")
+"move_left": SubResource("Animation_1s7k0"),
+"move_right": SubResource("Animation_4674x")
 }
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_m6v4o"]
-animation = &"move_up_left"
+animation = &"move_left"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_hqd1g"]
-animation = &"move_down_left"
+animation = &"move_left"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_82bal"]
-animation = &"move_down_right"
+animation = &"move_right"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_f3cc7"]
-animation = &"move_up_right"
+animation = &"move_right"
 
 [sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_hi8t8"]
 blend_point_0/node = SubResource("AnimationNodeAnimation_m6v4o")
@@ -136,24 +99,31 @@ states/Idle/position = Vector2(577, 105)
 states/Start/position = Vector2(403, 95)
 transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_7gw3g"), "Idle", "End", SubResource("AnimationNodeStateMachineTransition_8g4hp")]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_uego1"]
+radius = 39.8121
+
 [node name="Player" type="CharacterBody2D"]
+y_sort_enabled = true
 script = ExtResource("1_etoyw")
 
 [node name="Sombra" type="Sprite2D" parent="."]
+unique_name_in_owner = true
 modulate = Color(0.144063, 0.144063, 0.144063, 1)
+z_index = -5
 position = Vector2(0, 111)
 scale = Vector2(0.962963, 0.697153)
 texture = ExtResource("2_vewiq")
 
 [node name="MaguitoSketch" type="Sprite2D" parent="."]
+unique_name_in_owner = true
 position = Vector2(-1.90735e-06, 1.90735e-06)
 scale = Vector2(0.448, 0.448)
-texture = ExtResource("3_72c6d")
-hframes = 4
+texture = ExtResource("3_udskb")
+hframes = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 8)
-shape = SubResource("CapsuleShape2D_xxt57")
+position = Vector2(0, 57)
+shape = SubResource("CircleShape2D_8x0bl")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
@@ -161,13 +131,25 @@ shape = SubResource("CapsuleShape2D_xxt57")
 libraries = {
 "": SubResource("AnimationLibrary_182m8")
 }
-autoplay = "move_down_right"
+autoplay = "move_left"
 
 [node name="PlayerAnimationTree" type="AnimationTree" parent="."]
 unique_name_in_owner = true
 root_node = NodePath("%PlayerAnimationTree/..")
 tree_root = SubResource("AnimationNodeStateMachine_6ke7o")
 anim_player = NodePath("../PlayerAnimation")
-parameters/Idle/blend_position = Vector2(-0.344095, -0.681416)
+parameters/Idle/blend_position = Vector2(0.998301, 0.994667)
 
 [node name="Gun" parent="." instance=ExtResource("4_q3wr0")]
+y_sort_enabled = true
+position = Vector2(0, 12)
+
+[node name="HurtBox" type="Area2D" parent="."]
+unique_name_in_owner = true
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+position = Vector2(0, 57)
+shape = SubResource("CircleShape2D_uego1")
+debug_color = Color(0.878495, 0.21234, 0.664021, 0.42)

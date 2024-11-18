@@ -9,10 +9,12 @@ radius = 17.0
 [node name="Bullet" type="Area2D"]
 top_level = true
 collision_layer = 0
-collision_mask = 3
+collision_mask = 2
 script = ExtResource("1_iftr8")
 
 [node name="Projectile" type="Sprite2D" parent="."]
+z_index = -1
+y_sort_enabled = true
 scale = Vector2(0.518519, 0.518519)
 texture = ExtResource("1_ynwme")
 

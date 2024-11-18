@@ -1,9 +1,86 @@
-[gd_scene load_steps=3 format=3 uid="uid://cl60rxc8515gc"]
+[gd_scene load_steps=13 format=3 uid="uid://cl60rxc8515gc"]
 
 [ext_resource type="Script" path="res://scripts/gun.gd" id="1_nfvgq"]
+[ext_resource type="Texture2D" uid="uid://cutvhpiigxpvk" path="res://assets/varita_1.png" id="2_50s5j"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_58vtb"]
 radius = 372.592
+
+[sub_resource type="Animation" id="Animation_15skf"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_q801x"]
+resource_name = "wand_left"
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_d8p6k"]
+resource_name = "wand_right"
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ani7y"]
+_data = {
+"RESET": SubResource("Animation_15skf"),
+"wand_left": SubResource("Animation_q801x"),
+"wand_right": SubResource("Animation_d8p6k")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_2h0jv"]
+animation = &"wand_right"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_hgltc"]
+animation = &"wand_left"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_80j0y"]
+animation = &"wand_right"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_pnb72"]
+animation = &"wand_left"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_ch3jl"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_2h0jv")
+blend_point_0/pos = Vector2(1, -1)
+blend_point_1/node = SubResource("AnimationNodeAnimation_hgltc")
+blend_point_1/pos = Vector2(-1, 1)
+blend_point_2/node = SubResource("AnimationNodeAnimation_80j0y")
+blend_point_2/pos = Vector2(1, 1)
+blend_point_3/node = SubResource("AnimationNodeAnimation_pnb72")
+blend_point_3/pos = Vector2(-1, -1)
 
 [node name="Gun" type="Area2D"]
 collision_layer = 0
@@ -13,11 +90,38 @@ script = ExtResource("1_nfvgq")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_58vtb")
 
+[node name="WandSprite" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(60, 26)
+scale = Vector2(0.455128, 0.455128)
+texture = ExtResource("2_50s5j")
+offset = Vector2(-2.19719, 4.39431)
+hframes = 2
+
+[node name="WandAnimation" type="AnimationPlayer" parent="."]
+root_node = NodePath("../WandSprite")
+libraries = {
+"": SubResource("AnimationLibrary_ani7y")
+}
+
+[node name="WandAnimationTree" type="AnimationTree" parent="."]
+unique_name_in_owner = true
+root_node = NodePath("%WandSprite")
+tree_root = SubResource("AnimationNodeBlendSpace2D_ch3jl")
+anim_player = NodePath("../WandAnimation")
+parameters/blend_position = Vector2(-0.988105, 0.982301)
+
 [node name="WeaponPivot" type="Marker2D" parent="."]
+unique_name_in_owner = true
+
+[node name="SpritePosition" type="Marker2D" parent="WeaponPivot"]
+unique_name_in_owner = true
+position = Vector2(52, 0)
 
 [node name="ShootingPoint" type="Marker2D" parent="WeaponPivot"]
 unique_name_in_owner = true
-position = Vector2(77, 0)
+position = Vector2(67, 1.90735e-06)
+scale = Vector2(0.455128, 0.455128)
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.3

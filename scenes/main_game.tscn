@@ -1,13 +1,21 @@
-[gd_scene load_steps=4 format=3 uid="uid://c37y5kfbu1blc"]
+[gd_scene load_steps=5 format=3 uid="uid://c37y5kfbu1blc"]
 
+[ext_resource type="Script" path="res://scenes/main_game.gd" id="1_6crti"]
 [ext_resource type="PackedScene" uid="uid://cjmj0l5wppk8d" path="res://scenes/player.tscn" id="1_ru6yb"]
 [ext_resource type="Texture2D" uid="uid://bco2eo4asrwp2" path="res://assets/orange_vortex.png" id="2_tirmx"]
-[ext_resource type="PackedScene" uid="uid://c2r3fn202aufc" path="res://scenes/enemy.tscn" id="3_jsabg"]
+
+[sub_resource type="Curve2D" id="Curve2D_x3c68"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -672, -448, 0, 0, 0, 0, 1176, -448, 0, 0, 0, 0, 1176, 832, 0, 0, 0, 0, -672, 832, 0, 0, 0, 0, -672, -448)
+}
+point_count = 5
 
 [node name="MainGame" type="Node2D"]
 y_sort_enabled = true
+script = ExtResource("1_6crti")
 
 [node name="TextureRect" type="TextureRect" parent="."]
+z_index = -30
 offset_left = -1038.0
 offset_top = -1118.0
 offset_right = 1632.0
@@ -22,74 +30,16 @@ follow_viewport_enabled = true
 [node name="Player" parent="." instance=ExtResource("1_ru6yb")]
 position = Vector2(240, 220)
 
-[node name="Enemy" parent="." instance=ExtResource("3_jsabg")]
-position = Vector2(-272, 219)
+[node name="EnemyPath" type="Path2D" parent="Player"]
+position = Vector2(-240, -220)
+curve = SubResource("Curve2D_x3c68")
 
-[node name="Enemy2" parent="." instance=ExtResource("3_jsabg")]
-position = Vector2(1230, 158)
+[node name="EnemySpawnLocation" type="PathFollow2D" parent="Player/EnemyPath"]
+unique_name_in_owner = true
+position = Vector2(-672, -448)
 
-[node name="Enemy3" parent="." instance=ExtResource("3_jsabg")]
-position = Vector2(-833, 432)
+[node name="EnemyTimer" type="Timer" parent="."]
+autostart = true
 
-[node name="Enemy4" parent="." instance=ExtResource("3_jsabg")]
-position = Vector2(-663, -118)
-
-[node name="Enemy5" parent="." instance=ExtResource("3_jsabg")]
-position = Vector2(-272, 219)
-
-[node name="Enemy6" parent="." instance=ExtResource("3_jsabg")]
-position = Vector2(1091, -219)
-
-[node name="Enemy7" parent="." instance=ExtResource("3_jsabg")]
-position = Vector2(1093, 612)
-
-[node name="Enemy8" parent="." instance=ExtResource("3_jsabg")]
-position = Vector2(-198, 623)
-
-[node name="Enemy9" parent="." instance=ExtResource("3_jsabg")]
-position = Vector2(325, -522)
-
-[node name="Enemy10" parent="." instance=ExtResource("3_jsabg")]
-position = Vector2(1827, -583)
-
-[node name="Enemy11" parent="." instance=ExtResource("3_jsabg")]
-position = Vector2(-236, -309)
-
-[node name="Enemy12" parent="." instance=ExtResource("3_jsabg")]
-position = Vector2(-66, -859)
-
-[node name="Enemy13" parent="." instance=ExtResource("3_jsabg")]
-position = Vector2(325, -522)
-
-[node name="Enemy14" parent="." instance=ExtResource("3_jsabg")]
-position = Vector2(1688, -960)
-
-[node name="Enemy15" parent="." instance=ExtResource("3_jsabg")]
-position = Vector2(1690, -129)
-
-[node name="Enemy16" parent="." instance=ExtResource("3_jsabg")]
-position = Vector2(399, -118)
-
-[node name="Enemy17" parent="." instance=ExtResource("3_jsabg")]
-position = Vector2(-771, 744)
-
-[node name="Enemy18" parent="." instance=ExtResource("3_jsabg")]
-position = Vector2(731, 683)
-
-[node name="Enemy19" parent="." instance=ExtResource("3_jsabg")]
-position = Vector2(-1332, 957)
-
-[node name="Enemy20" parent="." instance=ExtResource("3_jsabg")]
-position = Vector2(-1162, 407)
-
-[node name="Enemy21" parent="." instance=ExtResource("3_jsabg")]
-position = Vector2(-771, 744)
-
-[node name="Enemy22" parent="." instance=ExtResource("3_jsabg")]
-position = Vector2(592, 306)
-
-[node name="Enemy23" parent="." instance=ExtResource("3_jsabg")]
-position = Vector2(594, 1137)
-
-[node name="Enemy24" parent="." instance=ExtResource("3_jsabg")]
-position = Vector2(-697, 1148)
+[connection signal="health_depleted" from="Player" to="." method="_on_player_health_depleted"]
+[connection signal="timeout" from="EnemyTimer" to="." method="_on_enemy_timer_timeout"]
