@@ -18,15 +18,17 @@ func _physics_process(delta: float) -> void:
 	if !enemies_in_range.is_empty():
 		var target_enemy: CharacterBody2D = enemies_in_range.front()
 		%WeaponPivot.look_at(target_enemy.global_position)
-		%WandSprite.global_position = %SpritePosition.global_position
-		%WandSprite.global_position = (%SpritePosition.global_position + Vector2(0, sin(time) * amplitude))
+		%WandSpritePivot.look_at(target_enemy.global_position)
+		%WandSprite.global_position = %WandSpritePivot.global_position
+		%WandSprite.global_position = (%WandSpritePivot.global_position + Vector2(0, sin(time) * amplitude))
 		
 		var pos_h = %WandSprite.position.normalized()				
 		%WandAnimationTree.set("parameters/blend_position", pos_h)
 	else:
 		%WeaponPivot.look_at(get_global_mouse_position())
-		%WandSprite.global_position = %SpritePosition.global_position
-		%WandSprite.global_position = (%SpritePosition.global_position + Vector2(0, sin(time) * amplitude))
+		%WandSpritePivot.look_at(get_global_mouse_position())
+		%WandSprite.global_position = %WandSpritePivot.global_position
+		%WandSprite.global_position = (%WandSpritePivot.global_position + Vector2(0, sin(time) * amplitude))
 		
 		var pos_h = %WandSprite.position.normalized()				
 		%WandAnimationTree.set("parameters/blend_position", pos_h)

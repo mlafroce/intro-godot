@@ -1,7 +1,7 @@
 [gd_scene load_steps=13 format=3 uid="uid://cl60rxc8515gc"]
 
-[ext_resource type="Script" path="res://scripts/gun.gd" id="1_nfvgq"]
-[ext_resource type="Texture2D" uid="uid://cutvhpiigxpvk" path="res://assets/varita_1.png" id="2_50s5j"]
+[ext_resource type="Script" path="res://scripts/gun.gd" id="1_2qawt"]
+[ext_resource type="Texture2D" uid="uid://cutvhpiigxpvk" path="res://assets/varita_1.png" id="2_q8pfb"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_58vtb"]
 radius = 372.592
@@ -82,19 +82,19 @@ blend_point_2/pos = Vector2(1, 1)
 blend_point_3/node = SubResource("AnimationNodeAnimation_pnb72")
 blend_point_3/pos = Vector2(-1, -1)
 
-[node name="Gun" type="Area2D"]
+[node name="Wand" type="Area2D"]
 collision_layer = 0
 collision_mask = 2
-script = ExtResource("1_nfvgq")
+script = ExtResource("1_2qawt")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_58vtb")
 
 [node name="WandSprite" type="Sprite2D" parent="."]
 unique_name_in_owner = true
-position = Vector2(60, 26)
+position = Vector2(42.375, 26)
 scale = Vector2(0.455128, 0.455128)
-texture = ExtResource("2_50s5j")
+texture = ExtResource("2_q8pfb")
 offset = Vector2(-2.19719, 4.39431)
 hframes = 2
 
@@ -103,6 +103,7 @@ root_node = NodePath("../WandSprite")
 libraries = {
 "": SubResource("AnimationLibrary_ani7y")
 }
+autoplay = "wand_right"
 
 [node name="WandAnimationTree" type="AnimationTree" parent="."]
 unique_name_in_owner = true
@@ -114,14 +115,14 @@ parameters/blend_position = Vector2(-0.988105, 0.982301)
 [node name="WeaponPivot" type="Marker2D" parent="."]
 unique_name_in_owner = true
 
-[node name="SpritePosition" type="Marker2D" parent="WeaponPivot"]
-unique_name_in_owner = true
-position = Vector2(52, 0)
-
 [node name="ShootingPoint" type="Marker2D" parent="WeaponPivot"]
 unique_name_in_owner = true
-position = Vector2(67, 1.90735e-06)
+position = Vector2(55, 1.90735e-06)
 scale = Vector2(0.455128, 0.455128)
+
+[node name="WandSpritePivot" type="Marker2D" parent="WeaponPivot"]
+unique_name_in_owner = true
+position = Vector2(29, 22)
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.3

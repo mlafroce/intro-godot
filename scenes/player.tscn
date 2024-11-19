@@ -1,9 +1,9 @@
-[gd_scene load_steps=19 format=3 uid="uid://cjmj0l5wppk8d"]
+[gd_scene load_steps=21 format=3 uid="uid://cjmj0l5wppk8d"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_etoyw"]
 [ext_resource type="Texture2D" uid="uid://c1ohpgf3f5n4l" path="res://assets/bullet.png" id="2_vewiq"]
 [ext_resource type="Texture2D" uid="uid://di461qqwniyh2" path="res://assets/mago_1.png" id="3_udskb"]
-[ext_resource type="PackedScene" uid="uid://cl60rxc8515gc" path="res://scenes/gun.tscn" id="4_q3wr0"]
+[ext_resource type="PackedScene" uid="uid://cl60rxc8515gc" path="res://scenes/wand.tscn" id="4_q3wr0"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8x0bl"]
 radius = 37.6962
@@ -23,25 +23,8 @@ tracks/0/keys = {
 "values": [0]
 }
 
-[sub_resource type="Animation" id="Animation_1s7k0"]
-resource_name = "move_left"
-length = 0.1
-step = 0.1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("MaguitoSketch:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
-
 [sub_resource type="Animation" id="Animation_4674x"]
-resource_name = "move_right"
+resource_name = "move_down_left"
 length = 0.1
 step = 0.1
 tracks/0/type = "value"
@@ -57,24 +40,77 @@ tracks/0/keys = {
 "values": [1]
 }
 
+[sub_resource type="Animation" id="Animation_2nbkv"]
+resource_name = "move_down_right"
+length = 0.1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MaguitoSketch:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [2]
+}
+
+[sub_resource type="Animation" id="Animation_1s7k0"]
+resource_name = "move_up_left"
+length = 0.1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MaguitoSketch:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_jcjkm"]
+resource_name = "move_up_right"
+length = 0.1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MaguitoSketch:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [3]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_182m8"]
 _data = {
 "RESET": SubResource("Animation_bsgk8"),
-"move_left": SubResource("Animation_1s7k0"),
-"move_right": SubResource("Animation_4674x")
+"move_down_left": SubResource("Animation_4674x"),
+"move_down_right": SubResource("Animation_2nbkv"),
+"move_up_left": SubResource("Animation_1s7k0"),
+"move_up_right": SubResource("Animation_jcjkm")
 }
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_m6v4o"]
-animation = &"move_left"
+animation = &"move_up_left"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_hqd1g"]
-animation = &"move_left"
+animation = &"move_down_left"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_82bal"]
-animation = &"move_right"
+animation = &"move_down_right"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_f3cc7"]
-animation = &"move_right"
+animation = &"move_up_right"
 
 [sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_hi8t8"]
 blend_point_0/node = SubResource("AnimationNodeAnimation_m6v4o")
@@ -119,7 +155,7 @@ unique_name_in_owner = true
 position = Vector2(-1.90735e-06, 1.90735e-06)
 scale = Vector2(0.448, 0.448)
 texture = ExtResource("3_udskb")
-hframes = 2
+hframes = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 57)
@@ -133,16 +169,16 @@ position_smoothing_enabled = true
 libraries = {
 "": SubResource("AnimationLibrary_182m8")
 }
-autoplay = "move_left"
+autoplay = "move_down_right"
 
 [node name="PlayerAnimationTree" type="AnimationTree" parent="."]
 unique_name_in_owner = true
 root_node = NodePath("%PlayerAnimationTree/..")
 tree_root = SubResource("AnimationNodeStateMachine_6ke7o")
 anim_player = NodePath("../PlayerAnimation")
-parameters/Idle/blend_position = Vector2(0.998301, 0.994667)
+parameters/Idle/blend_position = Vector2(-1, 1)
 
-[node name="Gun" parent="." instance=ExtResource("4_q3wr0")]
+[node name="Wand" parent="." instance=ExtResource("4_q3wr0")]
 y_sort_enabled = true
 position = Vector2(0, 12)
 
