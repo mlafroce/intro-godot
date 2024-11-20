@@ -37,7 +37,8 @@ func shoot():
 	%WandSprite.scale = Vector2(0.650, 0.3)
 	
 	const BULLET = preload("res://scenes/bullet.tscn")
-	var new_bullet = BULLET.instantiate()
+	const LASER = preload("res://scenes/laserbeam.tscn")
+	var new_bullet = LASER.instantiate()
 	
 	new_bullet.global_position = %ShootingPoint.global_position
 	new_bullet.global_rotation = %ShootingPoint.global_rotation
