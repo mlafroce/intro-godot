@@ -1,28 +1,82 @@
-[gd_scene load_steps=4 format=3 uid="uid://q8gao713gdxo"]
+[gd_scene load_steps=7 format=3 uid="uid://q8gao713gdxo"]
 
 [ext_resource type="Script" path="res://scripts/laserbeam.gd" id="1_31mty"]
 [ext_resource type="Texture2D" uid="uid://b6tqg6thr5xfk" path="res://assets/laserbeam.png" id="2_yj2a4"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_vu0kw"]
-radius = 33.0
+radius = 35.0
 height = 1622.0
+
+[sub_resource type="Animation" id="Animation_71yv7"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Projectile:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_mjq0h"]
+resource_name = "laser"
+length = 0.6
+loop_mode = 1
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Projectile:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 1, 2]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_mlydk"]
+_data = {
+"RESET": SubResource("Animation_71yv7"),
+"laser": SubResource("Animation_mjq0h")
+}
 
 [node name="Laserbeam" type="Area2D"]
 top_level = true
+y_sort_enabled = true
 collision_layer = 0
-collision_mask = 0
+collision_mask = 2
 script = ExtResource("1_31mty")
 
 [node name="Projectile" type="Sprite2D" parent="."]
-z_index = -1
 y_sort_enabled = true
+position = Vector2(790, 0)
 scale = Vector2(0.518519, 0.518519)
 texture = ExtResource("2_yj2a4")
+flip_h = true
 vframes = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 2)
+position = Vector2(791, 1)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_vu0kw")
 
-[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_mlydk")
+}
+autoplay = "laser"
+speed_scale = 2.0
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.4
+one_shot = true
+autostart = true
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

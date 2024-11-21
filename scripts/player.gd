@@ -4,7 +4,7 @@ signal health_depleted
 
 const SPEED = 350
 var time = 0.0
-var amplitude = 4.0
+var amplitude = 8.0
 var frequency = 8.0
 	
 var amplitude_shadow = 0.125
@@ -20,6 +20,12 @@ func _process(delta: float) -> void:
 	%MaguitoSketch.set_position(default_pos + Vector2(0, sin(time) * amplitude))
 	
 	%Sombra.scale = Vector2(0.963, 0.697) + Vector2(sin(time) * amplitude_shadow, sin(time) * amplitude_shadow)
+	
+	if Input.is_action_just_pressed("change_weapon"):
+		%Wand.changeWeapon()
+		
+	if Input.is_action_just_pressed("shoot_wand"):
+		%Wand.shoot()
 
 func _physics_process(delta: float) -> void:
 	var direction = Input.get_vector("move_left", "move_right", "move_up", "move_down")

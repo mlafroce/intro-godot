@@ -17,8 +17,8 @@ func _physics_process(delta: float) -> void:
 	
 	move_and_slide()
 
-func take_damage() -> void:
-	health -= 1
+func take_damage(dmg: int) -> void:
+	health -= dmg
 	
-	if health == 0:
+	if health <= 0:
 		queue_free()

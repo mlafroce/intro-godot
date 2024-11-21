@@ -179,6 +179,7 @@ anim_player = NodePath("../PlayerAnimation")
 parameters/Idle/blend_position = Vector2(-1, 1)
 
 [node name="Wand" parent="." instance=ExtResource("4_q3wr0")]
+unique_name_in_owner = true
 y_sort_enabled = true
 position = Vector2(0, 12)
 
