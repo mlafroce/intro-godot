@@ -1,8 +1,13 @@
-[gd_scene load_steps=16 format=3 uid="uid://c2r3fn202aufc"]
+[gd_scene load_steps=18 format=3 uid="uid://c2r3fn202aufc"]
 
 [ext_resource type="Texture2D" uid="uid://d1c7l4g7y37w6" path="res://assets/enemy_placeholder.png" id="1_eqjiv"]
 [ext_resource type="Script" path="res://scripts/enemy.gd" id="1_o5v0m"]
 [ext_resource type="Texture2D" uid="uid://c1ohpgf3f5n4l" path="res://assets/bullet.png" id="2_ivh60"]
+[ext_resource type="Shader" path="res://shaders/glow.gdshader" id="3_qffmp"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6k36v"]
+shader = ExtResource("3_qffmp")
+shader_parameter/EXTRA_GLOW = 0.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hkt5t"]
 radius = 27.0
@@ -108,6 +113,8 @@ scale = Vector2(0.777778, 0.554134)
 texture = ExtResource("2_ivh60")
 
 [node name="PlaceholderSprite" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_6k36v")
 scale = Vector2(0.331492, 0.331492)
 texture = ExtResource("1_eqjiv")
 hframes = 2
