@@ -1,12 +1,14 @@
 shader_type canvas_item;
 
+uniform float EXTRA_GLOW = 0.0;
+
 void vertex() {
 	// Called for every vertex the material is visible on.
 }
 
 void fragment() {
 	vec4 pixel_color = texture(TEXTURE, UV);
-	pixel_color.r = 1.0;
+	pixel_color.rgb += vec3(1.0, 1.0, 1.0) * EXTRA_GLOW;
 	COLOR = pixel_color;
 }
 
