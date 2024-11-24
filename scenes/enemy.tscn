@@ -1,8 +1,8 @@
 [gd_scene load_steps=20 format=3 uid="uid://c2r3fn202aufc"]
 
-[ext_resource type="Texture2D" uid="uid://d1c7l4g7y37w6" path="res://assets/enemy_placeholder.png" id="1_eqjiv"]
 [ext_resource type="Script" path="res://scripts/enemy.gd" id="1_o5v0m"]
 [ext_resource type="Texture2D" uid="uid://c1ohpgf3f5n4l" path="res://assets/bullet.png" id="2_ivh60"]
+[ext_resource type="Texture2D" uid="uid://kd3mpgmfogkw" path="res://assets/ice-golem/Walking/walking-spritesheet.png" id="3_dcwvx"]
 [ext_resource type="Shader" path="res://shaders/glow.gdshader" id="3_qffmp"]
 [ext_resource type="Texture2D" uid="uid://hnj1hp7vwyw" path="res://assets/health-bar-under.png" id="5_nephn"]
 [ext_resource type="Texture2D" uid="uid://cq6dsnj1lj6x1" path="res://assets/health-bar-progress.png" id="7_8wcrs"]
@@ -16,7 +16,8 @@ radius = 27.0
 height = 94.0
 
 [sub_resource type="Animation" id="Animation_dgi6f"]
-length = 0.001
+length = 1.6
+loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -30,10 +31,10 @@ tracks/0/keys = {
 "values": [0]
 }
 
-[sub_resource type="Animation" id="Animation_bpxql"]
+[sub_resource type="Animation" id="Animation_t4ul4"]
 resource_name = "walk_left"
-length = 0.1
-step = 0.1
+length = 1.5
+loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -41,16 +42,16 @@ tracks/0/path = NodePath("PlaceholderSprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.0666667, 0.133333, 0.2, 0.266667, 0.333333, 0.4, 0.466667, 0.533333, 0.6, 0.666667, 0.733333, 0.8, 0.866667, 0.933333, 1, 1.06667, 1.13333, 1.2, 1.26667, 1.33333, 1.4, 1.46667, 1.53333),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [0]
+"values": [31, 30, 29, 28, 27, 26, 25, 24, 39, 38, 37, 36, 35, 34, 33, 32, 47, 46, 45, 44, 43, 42, 41, 40]
 }
 
-[sub_resource type="Animation" id="Animation_4bri3"]
+[sub_resource type="Animation" id="Animation_xilv4"]
 resource_name = "walk_right"
-length = 0.1
-step = 0.1
+length = 1.6
+loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -58,17 +59,17 @@ tracks/0/path = NodePath("PlaceholderSprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.0666667, 0.133333, 0.2, 0.266667, 0.333333, 0.396932, 0.466667, 0.533333, 0.6, 0.666667, 0.733333, 0.8, 0.866667, 0.933333, 1, 1.06667, 1.13333, 1.2, 1.26667, 1.33333, 1.4, 1.46667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [1]
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_pwm1e"]
 _data = {
 "RESET": SubResource("Animation_dgi6f"),
-"walk_left": SubResource("Animation_bpxql"),
-"walk_right": SubResource("Animation_4bri3")
+"walk_left": SubResource("Animation_t4ul4"),
+"walk_right": SubResource("Animation_xilv4")
 }
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_fcutl"]
@@ -117,9 +118,11 @@ texture = ExtResource("2_ivh60")
 [node name="PlaceholderSprite" type="Sprite2D" parent="."]
 unique_name_in_owner = true
 material = SubResource("ShaderMaterial_6k36v")
-scale = Vector2(0.331492, 0.331492)
-texture = ExtResource("1_eqjiv")
-hframes = 2
+position = Vector2(0, -6.515)
+scale = Vector2(0.266, 0.266)
+texture = ExtResource("3_dcwvx")
+hframes = 8
+vframes = 6
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 31)

@@ -7,7 +7,7 @@ const GLOW_STEP = 10.0
 
 @onready var player = get_node("/root/MainGame/Player")
 
-var health = 3
+var health = 5
 var current_glow = MIN_GLOW
 
 func _ready() -> void:
