@@ -1,9 +1,11 @@
-[gd_scene load_steps=18 format=3 uid="uid://c2r3fn202aufc"]
+[gd_scene load_steps=20 format=3 uid="uid://c2r3fn202aufc"]
 
 [ext_resource type="Texture2D" uid="uid://d1c7l4g7y37w6" path="res://assets/enemy_placeholder.png" id="1_eqjiv"]
 [ext_resource type="Script" path="res://scripts/enemy.gd" id="1_o5v0m"]
 [ext_resource type="Texture2D" uid="uid://c1ohpgf3f5n4l" path="res://assets/bullet.png" id="2_ivh60"]
 [ext_resource type="Shader" path="res://shaders/glow.gdshader" id="3_qffmp"]
+[ext_resource type="Texture2D" uid="uid://hnj1hp7vwyw" path="res://assets/health-bar-under.png" id="5_nephn"]
+[ext_resource type="Texture2D" uid="uid://cq6dsnj1lj6x1" path="res://assets/health-bar-progress.png" id="7_8wcrs"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_6k36v"]
 shader = ExtResource("3_qffmp")
@@ -134,3 +136,13 @@ root_node = NodePath("%EnemyAnimationTree/..")
 tree_root = SubResource("AnimationNodeStateMachine_bhwaq")
 anim_player = NodePath("../EnemyAnimation")
 parameters/Walk/blend_position = Vector2(0.994902, 1)
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="."]
+unique_name_in_owner = true
+offset_left = -73.0
+offset_top = -120.0
+offset_right = 532.0
+offset_bottom = 1.0
+scale = Vector2(0.25, 0.25)
+texture_under = ExtResource("5_nephn")
+texture_progress = ExtResource("7_8wcrs")

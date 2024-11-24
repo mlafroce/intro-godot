@@ -14,6 +14,8 @@ func _ready() -> void:
 	var shader = %PlaceholderSprite.material as ShaderMaterial
 	# Instance uniforms are not implemented, workaround!
 	%PlaceholderSprite.material = shader.duplicate()
+	%TextureProgressBar.max_value = health
+	%TextureProgressBar.value = health
 
 func _process(delta: float) -> void:
 	var shader = %PlaceholderSprite.material as ShaderMaterial
@@ -39,6 +41,7 @@ func take_damage(dmg: int) -> void:
 	current_glow = MAX_GLOW;
 	var shader = %PlaceholderSprite.material as ShaderMaterial
 	shader.set_shader_parameter("EXTRA_GLOW", current_glow)
+	%TextureProgressBar.value = health
 	
 	if health <= 0:
 		queue_free()
