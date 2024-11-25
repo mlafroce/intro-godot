@@ -6,13 +6,19 @@ const SPEED = 350
 var time = 0.0
 var amplitude = 8.0
 var frequency = 8.0
-	
+
 var amplitude_shadow = 0.125
 
-var health: float = 100.0
+const MAX_HEALTH: float = 1000.0
+var health: float = MAX_HEALTH
+const HEALING_RATE = 0.2
 const DMG_RATE = 5.0
 
 @onready var default_pos = %MaguitoSketch.get_position()
+
+func _ready() -> void:
+	%HealthBar.max_value = health
+	%HealthBar.value = health
 
 func _process(delta: float) -> void:
 	time += delta * frequency
@@ -20,7 +26,9 @@ func _process(delta: float) -> void:
 	%MaguitoSketch.set_position(default_pos + Vector2(0, sin(time) * amplitude))
 	
 	%Sombra.scale = Vector2(0.963, 0.697) + Vector2(sin(time) * amplitude_shadow, sin(time) * amplitude_shadow)
-	
+	if health <= MAX_HEALTH:
+		health += HEALING_RATE
+		%HealthBar.value = health
 	if Input.is_action_just_pressed("change_weapon"):
 		%Wand.changeWeapon()
 		
@@ -41,7 +49,10 @@ func _physics_process(delta: float) -> void:
 	var overlapping_enemies = %HurtBox.get_overlapping_bodies()
 	
 	if !overlapping_enemies.is_empty():
-		health -= overlapping_enemies.size() * DMG_RATE
+		take_damage(overlapping_enemies.size() * DMG_RATE)
 		
-		if health <= 0.0:
-			health_depleted.emit()
+func take_damage(damage: float):
+	health -= damage
+	%HealthBar.value = health
+	if health <= 0.0:
+		health_depleted.emit()
