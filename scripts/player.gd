@@ -3,16 +3,19 @@ extends CharacterBody2D
 signal health_depleted
 
 const SPEED = 350
+const MAX_HEALTH: float = 100.0
+const HEALING_RATE = 0.2
+const DMG_RATE = 5.0
+const MAX_INVULNERABLE_ON_DMG = 1.0
+
 var time = 0.0
 var amplitude = 8.0
 var frequency = 8.0
 
 var amplitude_shadow = 0.125
 
-const MAX_HEALTH: float = 1000.0
 var health: float = MAX_HEALTH
-const HEALING_RATE = 0.2
-const DMG_RATE = 5.0
+var invulnerable_time: float = 0.0
 
 @onready var default_pos = %MaguitoSketch.get_position()
 
@@ -26,8 +29,15 @@ func _process(delta: float) -> void:
 	%MaguitoSketch.set_position(default_pos + Vector2(0, sin(time) * amplitude))
 	
 	%Sombra.scale = Vector2(0.963, 0.697) + Vector2(sin(time) * amplitude_shadow, sin(time) * amplitude_shadow)
+	if self.invulnerable_time > 0:
+		self.invulnerable_time -= delta
+		if self.invulnerable_time < 0:
+			self.invulnerable_time = 0
+		var factor = self.invulnerable_time / MAX_INVULNERABLE_ON_DMG
+		self.set_shader_property("DAMAGED", factor)
+		
 	if health <= MAX_HEALTH:
-		health += HEALING_RATE
+		health += HEALING_RATE * delta
 		%HealthBar.value = health
 	if Input.is_action_just_pressed("change_weapon"):
 		%Wand.changeWeapon()
@@ -52,7 +62,15 @@ func _physics_process(delta: float) -> void:
 		take_damage(overlapping_enemies.size() * DMG_RATE)
 		
 func take_damage(damage: float):
+	if self.invulnerable_time > 0:
+		return
 	health -= damage
 	%HealthBar.value = health
+	self.invulnerable_time = MAX_INVULNERABLE_ON_DMG
+	set_shader_property("DAMAGED", 1.0)
 	if health <= 0.0:
 		health_depleted.emit()
+
+func set_shader_property(key: String, value):
+	var shader = %MaguitoSketch.material as ShaderMaterial
+	shader.set_shader_parameter(key, value)

@@ -1,10 +1,15 @@
-[gd_scene load_steps=22 format=3 uid="uid://cjmj0l5wppk8d"]
+[gd_scene load_steps=24 format=3 uid="uid://cjmj0l5wppk8d"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_etoyw"]
 [ext_resource type="Texture2D" uid="uid://c1ohpgf3f5n4l" path="res://assets/bullet.png" id="2_vewiq"]
+[ext_resource type="Shader" path="res://shaders/maguito.gdshader" id="3_lvvc3"]
 [ext_resource type="Texture2D" uid="uid://di461qqwniyh2" path="res://assets/mago_1.png" id="3_udskb"]
 [ext_resource type="PackedScene" uid="uid://cl60rxc8515gc" path="res://scenes/wand.tscn" id="4_q3wr0"]
 [ext_resource type="PackedScene" uid="uid://1pi3yxplylql" path="res://scenes/health_bar.tscn" id="5_ouxuo"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bc5jv"]
+shader = ExtResource("3_lvvc3")
+shader_parameter/DAMAGED = 0.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8x0bl"]
 radius = 37.6962
@@ -153,6 +158,7 @@ texture = ExtResource("2_vewiq")
 
 [node name="MaguitoSketch" type="Sprite2D" parent="."]
 unique_name_in_owner = true
+material = SubResource("ShaderMaterial_bc5jv")
 position = Vector2(-1.90735e-06, 1.90735e-06)
 scale = Vector2(0.448, 0.448)
 texture = ExtResource("3_udskb")
