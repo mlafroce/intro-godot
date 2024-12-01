@@ -11,7 +11,8 @@ func spawn_enemy():
 	add_child(new_enemy)
 
 func _on_player_health_depleted() -> void:
-	get_tree().paused = true
+	#get_tree().paused = true
+	get_tree().change_scene_to_file("res://scenes/game_over.tscn")
 
 
 func _on_enemy_timer_timeout() -> void:
