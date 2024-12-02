@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://c37y5kfbu1blc"]
+[gd_scene load_steps=6 format=3 uid="uid://c37y5kfbu1blc"]
 
 [ext_resource type="Script" path="res://scripts/main_game.gd" id="1_6crti"]
 [ext_resource type="PackedScene" uid="uid://cjmj0l5wppk8d" path="res://scenes/player.tscn" id="1_ru6yb"]
 [ext_resource type="Texture2D" uid="uid://bco2eo4asrwp2" path="res://assets/orange_vortex.png" id="2_tirmx"]
+[ext_resource type="PackedScene" uid="uid://bmbuprw6odt38" path="res://scenes/weapon_progress_bar.tscn" id="4_0juwd"]
 
 [sub_resource type="Curve2D" id="Curve2D_x3c68"]
 _data = {
@@ -14,32 +15,47 @@ point_count = 5
 y_sort_enabled = true
 script = ExtResource("1_6crti")
 
-[node name="TextureRect" type="TextureRect" parent="."]
+[node name="TileMapLayer" type="TileMapLayer" parent="."]
+
+[node name="TextureRect" type="TextureRect" parent="TileMapLayer"]
 z_index = -30
-offset_left = -1038.0
-offset_top = -1118.0
-offset_right = 1632.0
-offset_bottom = 1552.0
+offset_left = -1437.0
+offset_top = -1349.0
+offset_right = 1233.0
+offset_bottom = 1321.0
 texture = ExtResource("2_tirmx")
 stretch_mode = 1
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="CanvasLayer" type="CanvasLayer" parent="TileMapLayer"]
 layer = -30
 follow_viewport_enabled = true
 
-[node name="Player" parent="." instance=ExtResource("1_ru6yb")]
-position = Vector2(240, 220)
+[node name="Player" parent="TileMapLayer" instance=ExtResource("1_ru6yb")]
+unique_name_in_owner = true
 
-[node name="EnemyPath" type="Path2D" parent="Player"]
+[node name="EnemyPath" type="Path2D" parent="TileMapLayer/Player"]
 position = Vector2(-240, -220)
 curve = SubResource("Curve2D_x3c68")
 
-[node name="EnemySpawnLocation" type="PathFollow2D" parent="Player/EnemyPath"]
+[node name="EnemySpawnLocation" type="PathFollow2D" parent="TileMapLayer/Player/EnemyPath"]
 unique_name_in_owner = true
+visible = false
 position = Vector2(-672, -448)
 
-[node name="EnemyTimer" type="Timer" parent="."]
+[node name="Camera2D" type="Camera2D" parent="TileMapLayer/Player"]
+position_smoothing_enabled = true
+
+[node name="EnemyTimer" type="Timer" parent="TileMapLayer"]
 autostart = true
 
-[connection signal="health_depleted" from="Player" to="." method="_on_player_health_depleted"]
-[connection signal="timeout" from="EnemyTimer" to="." method="_on_enemy_timer_timeout"]
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="WeaponProgressBar" parent="CanvasLayer" instance=ExtResource("4_0juwd")]
+unique_name_in_owner = true
+offset_left = 7.0
+offset_top = 9.0
+offset_right = 6.99998
+offset_bottom = 9.0
+
+[connection signal="health_depleted" from="TileMapLayer/Player" to="." method="_on_player_health_depleted"]
+[connection signal="timeout" from="TileMapLayer/EnemyTimer" to="." method="_on_enemy_timer_timeout"]

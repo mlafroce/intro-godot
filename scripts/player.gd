@@ -74,3 +74,6 @@ func take_damage(damage: float):
 func set_shader_property(key: String, value):
 	var shader = %MaguitoSketch.material as ShaderMaterial
 	shader.set_shader_parameter(key, value)
+	
+func get_bullet_progress():
+	return %Wand.bullet_shooter.get_bullet_progress()
