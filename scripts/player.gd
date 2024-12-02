@@ -4,8 +4,8 @@ signal health_depleted
 
 const SPEED = 350
 const MAX_HEALTH: float = 100.0
-const HEALING_RATE = 0.2
-const DMG_RATE = 5.0
+const HEALING_RATE = 1.0
+const DMG_RATE = 20.0
 const MAX_INVULNERABLE_ON_DMG = 1.0
 
 var time = 0.0
@@ -77,3 +77,6 @@ func set_shader_property(key: String, value):
 	
 func get_bullet_progress():
 	return %Wand.bullet_shooter.get_bullet_progress()
+
+func get_laser_progress():
+	return %Wand.laser_shooter.get_bullet_progress()

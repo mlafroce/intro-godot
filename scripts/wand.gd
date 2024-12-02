@@ -5,6 +5,7 @@ extends Area2D
 enum WeaponMode { BULLET, LASER }
 
 var bullet_shooter
+var laser_shooter
 
 var time = 0.0
 var amplitude = 4.0
@@ -12,7 +13,7 @@ var frequency = 8.0
 
 var currentWeapon = WeaponMode.BULLET
 
-class BallShooter:
+class BulletShooter:
 	const SHOOTING_TIME = 0.3
 	var remaining_time = 0
 	var wand: Sprite2D
@@ -49,13 +50,51 @@ class BallShooter:
 	func get_bullet_progress():
 		return 1 - (self.remaining_time / SHOOTING_TIME)
 
+class LaserShooter:
+	const SHOOTING_TIME = 2
+	var remaining_time = 0
+	var wand: Sprite2D
+	var shooting_point: Marker2D
+	
+	func _init(wand: Sprite2D, shooting_point: Marker2D) -> void:
+		self.wand = wand
+		self.shooting_point = shooting_point
+	
+	func _process(delta):
+		if remaining_time > 0:
+			self.remaining_time -= delta
+			if remaining_time < 0:
+				remaining_time = 0
+	
+	func shoot():
+		if remaining_time != 0:
+			return
+		self.remaining_time = SHOOTING_TIME
+		self.wand.scale = Vector2(0.650, 0.3)
+	
+		const LASER = preload("res://scenes/laserbeam.tscn")
+		
+		var new_bullet = LASER.instantiate()
+		new_bullet.position = self.shooting_point.get_global_position()
+		new_bullet.rotation = self.shooting_point.get_global_rotation()
+		
+		self.shooting_point.add_child(new_bullet)
+	
+	func can_autoshoot() -> bool:
+		return false
+	
+	func get_bullet_progress():
+		return 1 - (self.remaining_time / SHOOTING_TIME)
+
 func _ready() -> void:
-	self.bullet_shooter = BallShooter.new(%WandSprite, %ShootingPoint)
+	self.bullet_shooter = BulletShooter.new(%WandSprite, %ShootingPoint)
+	self.laser_shooter = LaserShooter.new(%WandSprite, %ShootingPoint)
 
 func _process(delta: float) -> void:
 	%WandSprite.scale.x = move_toward(%WandSprite.scale.x, 0.455, 3 * delta)
 	%WandSprite.scale.y = move_toward(%WandSprite.scale.y, 0.455, 3 * delta)
 	self.bullet_shooter._process(delta)
+	self.laser_shooter._process(delta)
 	self.auto_shoot()
 
 func auto_shoot():
@@ -90,17 +129,6 @@ func changeWeapon() -> void:
 	currentWeapon = (currentWeapon + 1) % WeaponMode.size()
 
 func shoot():
-	if currentWeapon == WeaponMode.BULLET:
-		return
+	if currentWeapon == WeaponMode.LASER:
+		self.laser_shooter.shoot()
 		
-	%WandSprite.scale = Vector2(0.650, 0.3)
-	
-	const LASER = preload("res://scenes/laserbeam.tscn")
-	
-	var new_bullet = LASER.instantiate()
-	
-	new_bullet.position = %ShootingPoint.get_global_position()
-	new_bullet.rotation = %ShootingPoint.get_global_rotation()
-	
-	
-	%ShootingPoint.add_child(new_bullet)

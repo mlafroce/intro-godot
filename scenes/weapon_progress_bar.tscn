@@ -1,8 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://bmbuprw6odt38"]
+[gd_scene load_steps=6 format=3 uid="uid://bmbuprw6odt38"]
 
 [ext_resource type="Script" path="res://scripts/weapon_progress_bar.gd" id="1_5w8p5"]
 [ext_resource type="Texture2D" uid="uid://cewug0t25qv3s" path="res://assets/bullet-bar-under.png" id="1_44yyl"]
 [ext_resource type="Texture2D" uid="uid://b7kgck4y5fp04" path="res://assets/bullet-bar-progress.png" id="2_etalt"]
+[ext_resource type="Texture2D" uid="uid://ll5cigq8h204" path="res://assets/laser-bar-under.png" id="4_preq2"]
+[ext_resource type="Texture2D" uid="uid://bqxdfpchsw0k7" path="res://assets/laser-bar-progress.png" id="5_57kox"]
 
 [node name="WeaponProgressBar" type="Control"]
 layout_mode = 3
@@ -21,3 +23,14 @@ offset_bottom = 64.0
 fill_mode = 4
 texture_under = ExtResource("1_44yyl")
 texture_progress = ExtResource("2_etalt")
+
+[node name="LaserBar" type="TextureProgressBar" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 74.0
+offset_top = 1.0
+offset_right = 138.0
+offset_bottom = 65.0
+fill_mode = 4
+texture_under = ExtResource("4_preq2")
+texture_progress = ExtResource("5_57kox")
