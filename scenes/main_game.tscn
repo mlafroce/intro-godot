@@ -15,16 +15,20 @@ point_count = 5
 y_sort_enabled = true
 script = ExtResource("1_6crti")
 
-[node name="TileMapLayer" type="TileMapLayer" parent="."]
+[node name="ParallaxBackground" type="Parallax2D" parent="."]
+show_behind_parent = true
+light_mask = 2
+visibility_layer = 2
+z_index = -1
+repeat_size = Vector2(2670, 2670)
 
-[node name="TextureRect" type="TextureRect" parent="TileMapLayer"]
-z_index = -30
-offset_left = -1437.0
-offset_top = -1349.0
-offset_right = 1233.0
-offset_bottom = 1321.0
+[node name="OrangeVortex" type="Sprite2D" parent="ParallaxBackground"]
+light_mask = 2
+visibility_layer = 2
+texture_repeat = 2
 texture = ExtResource("2_tirmx")
-stretch_mode = 1
+
+[node name="TileMapLayer" type="TileMapLayer" parent="."]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="TileMapLayer"]
 layer = -30

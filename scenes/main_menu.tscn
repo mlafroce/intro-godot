@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://b3ekpu4xd8or0"]
+[gd_scene load_steps=8 format=3 uid="uid://b3ekpu4xd8or0"]
 
 [ext_resource type="Texture2D" uid="uid://bco2eo4asrwp2" path="res://assets/orange_vortex.png" id="1_1qu5k"]
 [ext_resource type="Script" path="res://scripts/main_menu.gd" id="1_63lci"]
+[ext_resource type="FontFile" uid="uid://wcw5gwi0vi4k" path="res://assets/WhitePeaberry.fnt" id="3_3fpwy"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_x2rtr"]
 texture = ExtResource("1_1qu5k")
@@ -64,6 +65,7 @@ theme_override_constants/separation = 10
 [node name="StartButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("3_3fpwy")
 theme_override_font_sizes/font_size = 28
 theme_override_styles/focus = SubResource("StyleBoxEmpty_7p28s")
 theme_override_styles/hover = SubResource("StyleBoxFlat_jly3q")
@@ -75,6 +77,7 @@ text = "Start
 [node name="ExitButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("3_3fpwy")
 theme_override_font_sizes/font_size = 28
 theme_override_styles/focus = SubResource("StyleBoxEmpty_7p28s")
 theme_override_styles/hover = SubResource("StyleBoxFlat_jly3q")
