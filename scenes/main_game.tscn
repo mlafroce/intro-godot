@@ -47,6 +47,7 @@ visible = false
 position = Vector2(-672, -448)
 
 [node name="Camera2D" type="Camera2D" parent="TileMapLayer/Player"]
+process_callback = 0
 position_smoothing_enabled = true
 
 [node name="EnemyTimer" type="Timer" parent="TileMapLayer"]
