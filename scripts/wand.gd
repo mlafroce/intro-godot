@@ -127,6 +127,7 @@ func _physics_process(delta: float) -> void:
 
 func changeWeapon() -> void:
 	currentWeapon = (currentWeapon + 1) % WeaponMode.size()
+	Events.emit_signal("changed_weapon", currentWeapon)
 
 func shoot():
 	if currentWeapon == WeaponMode.LASER:

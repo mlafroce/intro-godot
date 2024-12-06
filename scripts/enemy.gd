@@ -44,4 +44,5 @@ func take_damage(dmg: int) -> void:
 	%HealthBar.value = health
 	
 	if health <= 0:
+		Events.emit_signal("enemy_died")
 		queue_free()

@@ -64,8 +64,11 @@ func _physics_process(delta: float) -> void:
 func take_damage(damage: float):
 	if self.invulnerable_time > 0:
 		return
+		
 	health -= damage
 	%HealthBar.value = health
+	Events.emit_signal("player_took_damage", damage)
+	
 	self.invulnerable_time = MAX_INVULNERABLE_ON_DMG
 	set_shader_property("DAMAGED", 1.0)
 	if health <= 0.0:

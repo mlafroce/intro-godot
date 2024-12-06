@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://c37y5kfbu1blc"]
+[gd_scene load_steps=7 format=3 uid="uid://c37y5kfbu1blc"]
 
 [ext_resource type="Script" path="res://scripts/main_game.gd" id="1_6crti"]
 [ext_resource type="PackedScene" uid="uid://cjmj0l5wppk8d" path="res://scenes/player.tscn" id="1_ru6yb"]
 [ext_resource type="Texture2D" uid="uid://bco2eo4asrwp2" path="res://assets/orange_vortex.png" id="2_tirmx"]
 [ext_resource type="PackedScene" uid="uid://bmbuprw6odt38" path="res://scenes/weapon_progress_bar.tscn" id="4_0juwd"]
+[ext_resource type="PackedScene" uid="uid://800dgy8ejcem" path="res://scenes/player_ui.tscn" id="4_g3y3w"]
 
 [sub_resource type="Curve2D" id="Curve2D_x3c68"]
 _data = {
@@ -55,12 +56,18 @@ autostart = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
+[node name="PlayerUI" parent="CanvasLayer" instance=ExtResource("4_g3y3w")]
+offset_left = 68.0
+offset_top = 65.0
+offset_right = 68.0
+offset_bottom = 65.0
+
 [node name="WeaponProgressBar" parent="CanvasLayer" instance=ExtResource("4_0juwd")]
 unique_name_in_owner = true
-offset_left = 7.0
-offset_top = 9.0
-offset_right = 6.99998
-offset_bottom = 9.0
+offset_left = 207.0
+offset_top = 163.0
+offset_right = 207.0
+offset_bottom = 163.0
 
 [connection signal="health_depleted" from="TileMapLayer/Player" to="." method="_on_player_health_depleted"]
 [connection signal="timeout" from="TileMapLayer/EnemyTimer" to="." method="_on_enemy_timer_timeout"]
