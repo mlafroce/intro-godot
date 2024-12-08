@@ -1,9 +1,8 @@
-[gd_scene load_steps=18 format=3 uid="uid://cqvnt6vuyuvcc"]
+[gd_scene load_steps=17 format=3 uid="uid://4n1ukksjw2g"]
 
 [ext_resource type="Script" path="res://scripts/ranged_enemy.gd" id="1_avep2"]
 [ext_resource type="Texture2D" uid="uid://c1ohpgf3f5n4l" path="res://assets/bullet.png" id="2_ytu8n"]
-[ext_resource type="Texture2D" uid="uid://ct30ysqhafel1" path="res://assets/ice-wraith/wraith-spritesheet.png" id="3_d37xx"]
-[ext_resource type="PackedScene" uid="uid://8wydxtmwnt1n" path="res://scenes/bullet.tscn" id="4_5moio"]
+[ext_resource type="Texture2D" uid="uid://db0dojofavdpp" path="res://assets/ice-wraith/wraith-spritesheet.png" id="3_d37xx"]
 [ext_resource type="PackedScene" uid="uid://1pi3yxplylql" path="res://scenes/health_bar.tscn" id="5_p2m48"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hkt5t"]
@@ -135,18 +134,16 @@ tree_root = SubResource("AnimationNodeStateMachine_inv71")
 anim_player = NodePath("../RangedEnemyAnimation")
 parameters/Shoot/blend_position = Vector2(-0.252275, -0.159292)
 
-[node name="Bullet" parent="." instance=ExtResource("4_5moio")]
+[node name="WeaponPivot" type="Marker2D" parent="."]
 unique_name_in_owner = true
-modulate = Color(0.211765, 1, 1, 1)
-collision_layer = 2
-collision_mask = 1
+
+[node name="ShootingPoint" type="Marker2D" parent="WeaponPivot"]
+unique_name_in_owner = true
+position = Vector2(55, 0)
 
 [node name="ShootingTimer" type="Timer" parent="."]
-wait_time = 5.0
+wait_time = 2.0
 autostart = true
-
-[node name="ShootingPoint" type="Marker2D" parent="."]
-unique_name_in_owner = true
 
 [node name="HealthBar" parent="." instance=ExtResource("5_p2m48")]
 
