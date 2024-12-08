@@ -54,7 +54,7 @@ func _physics_process(delta: float) -> void:
 	if dir_normalized != Vector2.ZERO:
 		%PlayerAnimationTree.set("parameters/Idle/blend_position", dir_normalized)
 		
-	move_and_slide()
+	move_and_collide(velocity * delta)
 	
 	var overlapping_enemies = %HurtBox.get_overlapping_bodies()
 	

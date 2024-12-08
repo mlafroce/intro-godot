@@ -34,7 +34,7 @@ func _physics_process(delta: float) -> void:
 	if dir_normalized != Vector2.ZERO:
 		%EnemyAnimationTree.set("parameters/Walk/blend_position", dir_normalized)
 	
-	move_and_slide()
+	move_and_collide(velocity * delta)
 
 func take_damage(dmg: int) -> void:
 	health -= dmg
