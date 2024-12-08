@@ -19,10 +19,6 @@ var invulnerable_time: float = 0.0
 
 @onready var default_pos = %MaguitoSketch.get_position()
 
-func _ready() -> void:
-	%HealthBar.max_value = health
-	%HealthBar.value = health
-
 func _process(delta: float) -> void:
 	time += delta * frequency
 	
@@ -38,7 +34,6 @@ func _process(delta: float) -> void:
 		
 	if health <= MAX_HEALTH:
 		health += HEALING_RATE * delta
-		%HealthBar.value = health
 	if Input.is_action_just_pressed("change_weapon"):
 		%Wand.changeWeapon()
 		
@@ -66,7 +61,6 @@ func take_damage(damage: float):
 		return
 		
 	health -= damage
-	%HealthBar.value = health
 	Events.emit_signal("player_took_damage", damage)
 	
 	self.invulnerable_time = MAX_INVULNERABLE_ON_DMG
