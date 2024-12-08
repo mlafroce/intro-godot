@@ -9,7 +9,7 @@ var frequency = 8.0
 
 var amplitude_shadow = 0.125
 
-const MAX_HEALTH: float = 1000.0
+const MAX_HEALTH: float = 100.0
 var health: float = MAX_HEALTH
 const HEALING_RATE = 0.2
 const DMG_RATE = 5.0
