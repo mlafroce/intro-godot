@@ -11,6 +11,7 @@ var SHADOW_AMPLITUDE = 0.125 / 4
 
 func _physics_process(delta: float) -> void:
 	var direction = global_position.direction_to(player.global_position)
+	%WeaponPivot.look_at(player.global_position)
 	
 	velocity = direction * SPEED
 	time += delta * FREQ
@@ -32,7 +33,14 @@ func take_damage(dmg: int) -> void:
 		queue_free()
 
 func _on_shooting_timer_timeout() -> void:
-	var new_bullet = preload("res://scenes/bullet.tscn").instantiate();
+	const ENEMY_BULLET = preload("res://scenes/enemy_bullet.tscn")
+	
+	var new_bullet = ENEMY_BULLET.instantiate()
+	
+	new_bullet.global_position = %ShootingPoint.global_position
+	new_bullet.global_rotation = %ShootingPoint.global_rotation
+	
+	%ShootingPoint.add_child(new_bullet);
 	#%ShootingPoint.look_at(player.global_position)
 	#new_bullet.global_position = %ShootingPoint.global_position
 	#new_bullet.global_rotation = %ShootingPoint.global_rotation
