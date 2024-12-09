@@ -1,10 +1,17 @@
-[gd_scene load_steps=7 format=3 uid="uid://c37y5kfbu1blc"]
+[gd_scene load_steps=9 format=3 uid="uid://c37y5kfbu1blc"]
 
 [ext_resource type="Script" path="res://scripts/main_game.gd" id="1_6crti"]
 [ext_resource type="PackedScene" uid="uid://cjmj0l5wppk8d" path="res://scenes/player.tscn" id="1_ru6yb"]
 [ext_resource type="Texture2D" uid="uid://b72c1jfokj48j" path="res://assets/Dungeon_Tileset.png" id="3_71dpf"]
 [ext_resource type="PackedScene" uid="uid://bmbuprw6odt38" path="res://scenes/weapon_progress_bar.tscn" id="4_0juwd"]
 [ext_resource type="PackedScene" uid="uid://800dgy8ejcem" path="res://scenes/player_ui.tscn" id="4_g3y3w"]
+[ext_resource type="Material" uid="uid://smgx35irihm0" path="res://shaders/vignette.tres" id="6_sjeoh"]
+
+[sub_resource type="Environment" id="Environment_ah5kj"]
+background_mode = 3
+glow_enabled = true
+glow_intensity = 7.7
+glow_hdr_threshold = 0.08
 
 [sub_resource type="Curve2D" id="Curve2D_x3c68"]
 _data = {
@@ -15,6 +22,9 @@ point_count = 5
 [node name="MainGame" type="Node2D"]
 y_sort_enabled = true
 script = ExtResource("1_6crti")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_ah5kj")
 
 [node name="ParallaxBackground" type="Parallax2D" parent="."]
 show_behind_parent = true
@@ -36,6 +46,7 @@ follow_viewport_enabled = true
 
 [node name="Player" parent="." instance=ExtResource("1_ru6yb")]
 unique_name_in_owner = true
+position = Vector2(941, 451)
 
 [node name="EnemyPath" type="Path2D" parent="Player"]
 position = Vector2(-240, -220)
@@ -48,14 +59,25 @@ position = Vector2(-1711, -889)
 rotation = -0.00563519
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
-zoom = Vector2(0.5, 0.5)
+zoom = Vector2(0.75, 0.75)
 process_callback = 0
 position_smoothing_enabled = true
 
 [node name="EnemyTimer" type="Timer" parent="Player"]
 autostart = true
 
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color(0.8074, 0.690629, 0.802268, 1)
+
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+material = ExtResource("6_sjeoh")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="PlayerUI" parent="CanvasLayer" instance=ExtResource("4_g3y3w")]
 offset_left = 68.0

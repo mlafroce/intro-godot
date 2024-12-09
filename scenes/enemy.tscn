@@ -147,3 +147,4 @@ parameters/Walk/blend_position = Vector2(0.994902, 1)
 
 [node name="HealthBar" parent="." instance=ExtResource("5_k5v4i")]
 unique_name_in_owner = true
+visible = false
