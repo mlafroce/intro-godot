@@ -13,7 +13,6 @@ var amplitude = 8.0
 var frequency = 8.0
 
 var amplitude_shadow = 0.125
-
 var health: float = MAX_HEALTH
 var invulnerable_time: float = 0.0
 
