@@ -76,7 +76,7 @@ theme_override_fonts/normal_font = ExtResource("3_3fpwy")
 theme_override_font_sizes/normal_font_size = 72
 theme_override_font_sizes/bold_font_size = 140
 bbcode_enabled = true
-text = "[center]Controls:
+text = "[center]Controls
 [/center]"
 fit_content = true
 scroll_active = false
@@ -100,9 +100,9 @@ theme_override_font_sizes/normal_font_size = 48
 theme_override_font_sizes/bold_font_size = 140
 bbcode_enabled = true
 text = "[left]
-movement:	w, a, s, d 
-change weapon:	e
-shoot laser:	left click
+Movement:	w, a, s, d 
+Change weapon:	e
+Shoot laser:	left click
 [/left]"
 fit_content = true
 scroll_active = false

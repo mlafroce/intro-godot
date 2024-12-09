@@ -6,6 +6,7 @@ func _ready() -> void:
 	Events.changed_weapon.connect(_on_change_weapon)
 	Events.enemy_died.connect(_on_enemy_died)
 	Events.player_took_damage.connect(_on_player_took_damage)
+	Events.heal_player.connect(_on_heal_player)
 	
 	%Score.text = "Score: " + str(score)
 	%PlayerHealth.value = 100.0
@@ -20,3 +21,6 @@ func _on_enemy_died() -> void:
 
 func _on_player_took_damage(damage) -> void:
 	%PlayerHealth.value -= damage
+	
+func _on_heal_player(recovered_health) -> void:
+	%PlayerHealth.value += recovered_health

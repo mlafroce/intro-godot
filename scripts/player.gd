@@ -33,6 +33,7 @@ func _process(delta: float) -> void:
 		
 	if health <= MAX_HEALTH:
 		health += HEALING_RATE * delta
+		Events.emit_signal("heal_player", HEALING_RATE*delta)
 	if Input.is_action_just_pressed("change_weapon"):
 		%Wand.changeWeapon()
 		

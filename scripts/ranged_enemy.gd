@@ -52,6 +52,7 @@ func take_damage(dmg: int) -> void:
 	shader.set_shader_parameter("EXTRA_GLOW", current_glow)
 	
 	if health <= 0:
+		Events.emit_signal("enemy_died")
 		queue_free()
 
 func _on_shooting_timer_timeout() -> void:
