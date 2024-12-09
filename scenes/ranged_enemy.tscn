@@ -1,13 +1,18 @@
-[gd_scene load_steps=17 format=3 uid="uid://4n1ukksjw2g"]
+[gd_scene load_steps=19 format=3 uid="uid://4n1ukksjw2g"]
 
 [ext_resource type="Script" path="res://scripts/ranged_enemy.gd" id="1_avep2"]
 [ext_resource type="Texture2D" uid="uid://c1ohpgf3f5n4l" path="res://assets/bullet.png" id="2_ytu8n"]
 [ext_resource type="Texture2D" uid="uid://db0dojofavdpp" path="res://assets/ice-wraith/wraith-spritesheet.png" id="3_d37xx"]
+[ext_resource type="Shader" path="res://shaders/glow.gdshader" id="3_grnly"]
 [ext_resource type="PackedScene" uid="uid://1pi3yxplylql" path="res://scenes/health_bar.tscn" id="5_p2m48"]
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_onkb5"]
+shader = ExtResource("3_grnly")
+shader_parameter/EXTRA_GLOW = 0.0
+
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hkt5t"]
-radius = 27.0
-height = 96.51
+radius = 36.0
+height = 122.51
 
 [sub_resource type="Animation" id="Animation_f1ri8"]
 length = 0.001
@@ -106,19 +111,21 @@ script = ExtResource("1_avep2")
 [node name="Shadow" type="Sprite2D" parent="."]
 unique_name_in_owner = true
 modulate = Color(0.145098, 0.145098, 0.145098, 1)
+self_modulate = Color(0, 0, 0, 1)
 position = Vector2(0, 67)
 scale = Vector2(0.777778, 0.554134)
 texture = ExtResource("2_ytu8n")
 
 [node name="RangedEnemySprite" type="Sprite2D" parent="."]
 unique_name_in_owner = true
-scale = Vector2(0.376, 0.376)
+material = SubResource("ShaderMaterial_onkb5")
+scale = Vector2(1.19048, 1.19048)
 texture = ExtResource("3_d37xx")
 hframes = 9
 vframes = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -4.255)
+position = Vector2(0, -21)
 shape = SubResource("CapsuleShape2D_hkt5t")
 
 [node name="RangedEnemyAnimation" type="AnimationPlayer" parent="."]
@@ -146,5 +153,6 @@ wait_time = 2.0
 autostart = true
 
 [node name="HealthBar" parent="." instance=ExtResource("5_p2m48")]
+visible = false
 
 [connection signal="timeout" from="ShootingTimer" to="." method="_on_shooting_timer_timeout"]

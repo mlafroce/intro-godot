@@ -2,12 +2,30 @@ extends CharacterBody2D
 
 const SPEED = 0.0
 
+const MAX_GLOW = 1.0
+const MIN_GLOW = 0.0
+const GLOW_STEP = 10.0
+
 @onready var player = get_node("/root/MainGame/Player")
 var health = 2
 var time = 0.0
 const AMPLITUDE = 5.0
 var FREQ = 8.0
 var SHADOW_AMPLITUDE = 0.125 / 4
+var current_glow = MIN_GLOW
+
+func _ready() -> void:
+	var shader = %RangedEnemySprite.material as ShaderMaterial
+	# Instance uniforms are not implemented, workaround!
+	%RangedEnemySprite.material = shader.duplicate()
+
+func _process(delta: float) -> void:
+	var shader = %RangedEnemySprite.material as ShaderMaterial
+	shader.set_shader_parameter("EXTRA_GLOW", current_glow)
+	if current_glow > 0.0:
+		current_glow -= GLOW_STEP * delta
+		if current_glow < 0.0:
+			current_glow = 0.0		
 
 func _physics_process(delta: float) -> void:
 	var direction = global_position.direction_to(player.global_position)
@@ -28,6 +46,10 @@ func _physics_process(delta: float) -> void:
 
 func take_damage(dmg: int) -> void:
 	health -= dmg
+	
+	current_glow = MAX_GLOW;
+	var shader = %RangedEnemySprite.material as ShaderMaterial
+	shader.set_shader_parameter("EXTRA_GLOW", current_glow)
 	
 	if health <= 0:
 		queue_free()

@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://degma4dl0vf7y"]
 
 [ext_resource type="Script" path="res://scripts/enemy_bullet.gd" id="1_3pxen"]
-[ext_resource type="Texture2D" uid="uid://c1ohpgf3f5n4l" path="res://assets/bullet.png" id="2_8o6rh"]
+[ext_resource type="Texture2D" uid="uid://cj8ssvmap3a6e" path="res://assets/bullet_enemy.png" id="2_eofga"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ab0jb"]
 radius = 17.0
@@ -12,11 +12,10 @@ collision_layer = 0
 script = ExtResource("1_3pxen")
 
 [node name="Projectile" type="Sprite2D" parent="."]
-modulate = Color(0.231373, 1, 1, 1)
 z_index = -1
 y_sort_enabled = true
 scale = Vector2(0.518519, 0.518519)
-texture = ExtResource("2_8o6rh")
+texture = ExtResource("2_eofga")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_ab0jb")

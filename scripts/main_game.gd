@@ -4,7 +4,12 @@ const ENEMY = preload("res://scenes/enemy.tscn")
 const RANGED_ENEMY = preload("res://scenes/ranged_enemy.tscn")
 
 func spawn_enemy():
-	var new_enemy = RANGED_ENEMY.instantiate()
+	var new_enemy;
+	if randf() > 0.8:
+		new_enemy = RANGED_ENEMY.instantiate()
+	else:
+		new_enemy = ENEMY.instantiate()
+	
 	%EnemySpawnLocation.progress_ratio = randf()
 	
 	new_enemy.global_position = %EnemySpawnLocation.global_position
