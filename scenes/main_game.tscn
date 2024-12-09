@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/main_game.gd" id="1_6crti"]
 [ext_resource type="PackedScene" uid="uid://cjmj0l5wppk8d" path="res://scenes/player.tscn" id="1_ru6yb"]
-[ext_resource type="Texture2D" uid="uid://b72c1jfokj48j" path="res://assets/Dungeon_Tileset.png" id="3_71dpf"]
+[ext_resource type="Texture2D" uid="uid://dexbjewmki5fl" path="res://assets/Dungeon_Tileset.png" id="3_71dpf"]
 [ext_resource type="PackedScene" uid="uid://bmbuprw6odt38" path="res://scenes/weapon_progress_bar.tscn" id="4_0juwd"]
 [ext_resource type="PackedScene" uid="uid://800dgy8ejcem" path="res://scenes/player_ui.tscn" id="4_g3y3w"]
 [ext_resource type="Material" uid="uid://smgx35irihm0" path="res://shaders/vignette.tres" id="6_sjeoh"]
@@ -94,5 +94,5 @@ offset_right = 173.0
 offset_bottom = 139.0
 scale = Vector2(0.75, 0.75)
 
-[connection signal="health_depleted" from="Player" to="." method="_on_player_health_depleted"]
+[connection signal="health_depleted" from="Player" to="." method="_on_player_health_depleted" flags=3]
 [connection signal="timeout" from="Player/EnemyTimer" to="." method="_on_enemy_timer_timeout"]
