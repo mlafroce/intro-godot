@@ -1,0 +1,104 @@
+[gd_scene load_steps=7 format=3 uid="uid://dly5xrkvy1ofg"]
+
+[ext_resource type="Script" path="res://scripts/game_over.gd" id="1_t1o2b"]
+[ext_resource type="Texture2D" uid="uid://bco2eo4asrwp2" path="res://assets/orange_vortex.png" id="2_dw30j"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_yudln"]
+texture = ExtResource("2_dw30j")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_w58kj"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hyb71"]
+bg_color = Color(0.303233, 0.303233, 0.303233, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+shadow_color = Color(0, 0, 0, 0.372549)
+shadow_size = 5
+shadow_offset = Vector2(0, 3)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_er82y"]
+bg_color = Color(0.10748, 0.10748, 0.10748, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+shadow_color = Color(0, 0, 0, 0.372549)
+shadow_size = 5
+shadow_offset = Vector2(0, 3)
+
+[node name="GameOver" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_t1o2b")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_yudln")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.141
+anchor_right = 1.0
+anchor_bottom = 0.312
+offset_top = 163.72
+offset_bottom = 164.04
+grow_horizontal = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0.74768, 0.74768, 0.74768, 1)
+theme_override_font_sizes/normal_font_size = 72
+theme_override_font_sizes/bold_font_size = 72
+bbcode_enabled = true
+text = "[center]Game Over[/center]"
+fit_content = true
+scroll_active = false
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -107.0
+offset_top = 146.0
+offset_right = 107.0
+offset_bottom = 237.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 10
+
+[node name="PlayAgainButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 28
+theme_override_styles/focus = SubResource("StyleBoxEmpty_w58kj")
+theme_override_styles/hover = SubResource("StyleBoxFlat_hyb71")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_er82y")
+theme_override_styles/normal = SubResource("StyleBoxFlat_er82y")
+text = "Play Again"
+
+[node name="ExitButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 28
+theme_override_styles/focus = SubResource("StyleBoxEmpty_w58kj")
+theme_override_styles/hover = SubResource("StyleBoxFlat_hyb71")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_er82y")
+theme_override_styles/normal = SubResource("StyleBoxFlat_er82y")
+text = "Exit
+"
+
+[connection signal="pressed" from="VBoxContainer/PlayAgainButton" to="." method="_on_play_again_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/ExitButton" to="." method="_on_exit_button_pressed"]

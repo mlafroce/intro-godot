@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://sgluc4c2ldpp"]
+
+[ext_resource type="Script" path="res://scripts/events.gd" id="1_vygsp"]
+
+[node name="Events" type="Node"]
+script = ExtResource("1_vygsp")

@@ -5,7 +5,7 @@ const MAX_GLOW = 1.0
 const MIN_GLOW = 0.0
 const GLOW_STEP = 10.0
 
-@onready var player = get_node("/root/MainGame/Player")
+@onready var player = get_node("/root/MainGame/TileMapLayer/Player")
 
 var health = 5
 var current_glow = MIN_GLOW
@@ -44,4 +44,5 @@ func take_damage(dmg: int) -> void:
 	%HealthBar.value = health
 	
 	if health <= 0:
+		Events.emit_signal("enemy_died")
 		queue_free()
