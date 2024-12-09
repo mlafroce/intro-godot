@@ -58,6 +58,55 @@ grow_horizontal = 2
 grow_vertical = 2
 metadata/_edit_use_anchors_ = true
 
+[node name="RichTextLabel" type="RichTextLabel" parent="Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -383.5
+offset_top = -280.0
+offset_right = 383.5
+offset_bottom = 458.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("3_3fpwy")
+theme_override_font_sizes/normal_font_size = 72
+theme_override_font_sizes/bold_font_size = 140
+bbcode_enabled = true
+text = "[center]Controls:
+[/center]"
+fit_content = true
+scroll_active = false
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="Panel/RichTextLabel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -315.0
+offset_top = -308.0
+offset_right = 315.0
+offset_bottom = 430.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("3_3fpwy")
+theme_override_font_sizes/normal_font_size = 48
+theme_override_font_sizes/bold_font_size = 140
+bbcode_enabled = true
+text = "[left]
+movement:	w, a, s, d 
+change weapon:	e
+shoot laser:	left click
+[/left]"
+fit_content = true
+scroll_active = false
+
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 8
