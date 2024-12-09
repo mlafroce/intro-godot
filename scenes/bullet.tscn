@@ -8,6 +8,8 @@ radius = 17.0
 
 [node name="Bullet" type="Area2D"]
 top_level = true
+y_sort_enabled = true
+position = Vector2(0, -18)
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("1_iftr8")

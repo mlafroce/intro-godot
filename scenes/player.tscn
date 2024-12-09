@@ -145,18 +145,21 @@ radius = 39.8121
 
 [node name="Player" type="CharacterBody2D"]
 y_sort_enabled = true
+position = Vector2(0, -130)
 script = ExtResource("1_etoyw")
 
 [node name="Sombra" type="Sprite2D" parent="."]
 unique_name_in_owner = true
 modulate = Color(0.144063, 0.144063, 0.144063, 1)
-z_index = -5
+self_modulate = Color(0, 0, 0, 1)
+z_index = -1
 position = Vector2(0, 111)
 scale = Vector2(0.962963, 0.697153)
 texture = ExtResource("2_vewiq")
 
 [node name="MaguitoSketch" type="Sprite2D" parent="."]
 unique_name_in_owner = true
+y_sort_enabled = true
 material = SubResource("ShaderMaterial_bc5jv")
 position = Vector2(-1.90735e-06, 1.90735e-06)
 scale = Vector2(0.448, 0.448)
