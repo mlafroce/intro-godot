@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-const SPEED = 150.0
+const SPEED = 230.0
 const MAX_GLOW = 1.0
 const MIN_GLOW = 0.0
 const GLOW_STEP = 10.0
