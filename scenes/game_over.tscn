@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://dly5xrkvy1ofg"]
+[gd_scene load_steps=9 format=3 uid="uid://dly5xrkvy1ofg"]
 
 [ext_resource type="Script" path="res://scripts/game_over.gd" id="1_t1o2b"]
 [ext_resource type="Texture2D" uid="uid://bco2eo4asrwp2" path="res://assets/orange_vortex.png" id="2_dw30j"]
 [ext_resource type="FontFile" uid="uid://wcw5gwi0vi4k" path="res://assets/WhitePeaberry.fnt" id="3_tevsp"]
+[ext_resource type="Material" uid="uid://smgx35irihm0" path="res://shaders/vignette.tres" id="4_5wiyr"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_yudln"]
 texture = ExtResource("2_dw30j")
@@ -46,6 +47,16 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_yudln")
+
+[node name="ColorRect" type="ColorRect" parent="Panel"]
+material = ExtResource("4_5wiyr")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
 
 [node name="RichTextLabel" type="RichTextLabel" parent="Panel"]
 layout_mode = 1
