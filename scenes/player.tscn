@@ -1,11 +1,10 @@
-[gd_scene load_steps=24 format=3 uid="uid://cjmj0l5wppk8d"]
+[gd_scene load_steps=23 format=3 uid="uid://cjmj0l5wppk8d"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_etoyw"]
 [ext_resource type="Texture2D" uid="uid://c1ohpgf3f5n4l" path="res://assets/bullet.png" id="2_vewiq"]
 [ext_resource type="Shader" path="res://shaders/maguito.gdshader" id="3_lvvc3"]
 [ext_resource type="Texture2D" uid="uid://di461qqwniyh2" path="res://assets/mago_1.png" id="3_udskb"]
 [ext_resource type="PackedScene" uid="uid://cl60rxc8515gc" path="res://scenes/wand.tscn" id="4_q3wr0"]
-[ext_resource type="PackedScene" uid="uid://1pi3yxplylql" path="res://scenes/health_bar.tscn" id="5_ouxuo"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_bc5jv"]
 shader = ExtResource("3_lvvc3")
@@ -146,18 +145,21 @@ radius = 39.8121
 
 [node name="Player" type="CharacterBody2D"]
 y_sort_enabled = true
+position = Vector2(0, -130)
 script = ExtResource("1_etoyw")
 
 [node name="Sombra" type="Sprite2D" parent="."]
 unique_name_in_owner = true
 modulate = Color(0.144063, 0.144063, 0.144063, 1)
-z_index = -5
+self_modulate = Color(0, 0, 0, 1)
+z_index = -1
 position = Vector2(0, 111)
 scale = Vector2(0.962963, 0.697153)
 texture = ExtResource("2_vewiq")
 
 [node name="MaguitoSketch" type="Sprite2D" parent="."]
 unique_name_in_owner = true
+y_sort_enabled = true
 material = SubResource("ShaderMaterial_bc5jv")
 position = Vector2(-1.90735e-06, 1.90735e-06)
 scale = Vector2(0.448, 0.448)
@@ -195,8 +197,3 @@ collision_mask = 2
 position = Vector2(0, 57)
 shape = SubResource("CircleShape2D_uego1")
 debug_color = Color(0.878495, 0.21234, 0.664021, 0.42)
-
-[node name="HealthBar" parent="." instance=ExtResource("5_ouxuo")]
-unique_name_in_owner = true
-offset_top = -147.0
-offset_bottom = -26.0

@@ -11,8 +11,8 @@ shader = ExtResource("3_qffmp")
 shader_parameter/EXTRA_GLOW = 0.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hkt5t"]
-radius = 27.0
-height = 94.0
+radius = 47.0
+height = 160.0
 
 [sub_resource type="Animation" id="Animation_dgi6f"]
 length = 1.6
@@ -104,21 +104,27 @@ transitions = ["Start", "Walk", SubResource("AnimationNodeStateMachineTransition
 graph_offset = Vector2(-6, -21)
 
 [node name="Enemy" type="CharacterBody2D"]
+y_sort_enabled = true
+position = Vector2(0, -110)
 collision_layer = 2
 collision_mask = 3
+motion_mode = 1
 script = ExtResource("1_o5v0m")
 
 [node name="Sombra" type="Sprite2D" parent="."]
 modulate = Color(0.145098, 0.145098, 0.145098, 1)
-position = Vector2(0, 67)
-scale = Vector2(0.777778, 0.554134)
+self_modulate = Color(0, 0, 0, 1)
+z_index = -1
+position = Vector2(0, 106)
+scale = Vector2(0.875, 0.623401)
 texture = ExtResource("2_ivh60")
 
 [node name="PlaceholderSprite" type="Sprite2D" parent="."]
 unique_name_in_owner = true
+y_sort_enabled = true
 material = SubResource("ShaderMaterial_6k36v")
-position = Vector2(0, -6.515)
-scale = Vector2(0.266, 0.266)
+position = Vector2(0, 2)
+scale = Vector2(0.631111, 0.631111)
 texture = ExtResource("3_dcwvx")
 hframes = 8
 vframes = 6
@@ -141,3 +147,4 @@ parameters/Walk/blend_position = Vector2(0.994902, 1)
 
 [node name="HealthBar" parent="." instance=ExtResource("5_k5v4i")]
 unique_name_in_owner = true
+visible = false

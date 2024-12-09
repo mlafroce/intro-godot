@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://dly5xrkvy1ofg"]
+[gd_scene load_steps=8 format=3 uid="uid://dly5xrkvy1ofg"]
 
 [ext_resource type="Script" path="res://scripts/game_over.gd" id="1_t1o2b"]
 [ext_resource type="Texture2D" uid="uid://bco2eo4asrwp2" path="res://assets/orange_vortex.png" id="2_dw30j"]
+[ext_resource type="FontFile" uid="uid://wcw5gwi0vi4k" path="res://assets/WhitePeaberry.fnt" id="3_tevsp"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_yudln"]
 texture = ExtResource("2_dw30j")
@@ -55,10 +56,10 @@ anchor_bottom = 0.312
 offset_top = 163.72
 offset_bottom = 164.04
 grow_horizontal = 2
-theme_override_colors/default_color = Color(0, 0, 0, 1)
-theme_override_colors/font_shadow_color = Color(0.74768, 0.74768, 0.74768, 1)
-theme_override_font_sizes/normal_font_size = 72
-theme_override_font_sizes/bold_font_size = 72
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("3_tevsp")
+theme_override_font_sizes/normal_font_size = 140
+theme_override_font_sizes/bold_font_size = 140
 bbcode_enabled = true
 text = "[center]Game Over[/center]"
 fit_content = true
@@ -82,6 +83,7 @@ theme_override_constants/separation = 10
 [node name="PlayAgainButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("3_tevsp")
 theme_override_font_sizes/font_size = 28
 theme_override_styles/focus = SubResource("StyleBoxEmpty_w58kj")
 theme_override_styles/hover = SubResource("StyleBoxFlat_hyb71")
@@ -92,6 +94,7 @@ text = "Play Again"
 [node name="ExitButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("3_tevsp")
 theme_override_font_sizes/font_size = 28
 theme_override_styles/focus = SubResource("StyleBoxEmpty_w58kj")
 theme_override_styles/hover = SubResource("StyleBoxFlat_hyb71")

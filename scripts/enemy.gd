@@ -5,7 +5,7 @@ const MAX_GLOW = 1.0
 const MIN_GLOW = 0.0
 const GLOW_STEP = 10.0
 
-@onready var player = get_node("/root/MainGame/TileMapLayer/Player")
+@onready var player = get_node("/root/MainGame/Player")
 
 var health = 5
 var current_glow = MIN_GLOW
@@ -34,6 +34,7 @@ func _physics_process(delta: float) -> void:
 	if dir_normalized != Vector2.ZERO:
 		%EnemyAnimationTree.set("parameters/Walk/blend_position", dir_normalized)
 	
+	#move_and_collide(velocity * delta)
 	move_and_slide()
 
 func take_damage(dmg: int) -> void:

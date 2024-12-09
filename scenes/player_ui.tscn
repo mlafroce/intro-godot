@@ -37,9 +37,9 @@ show_percentage = false
 [node name="Score" type="RichTextLabel" parent="."]
 unique_name_in_owner = true
 layout_mode = 0
-offset_left = 162.0
+offset_left = 172.0
 offset_top = -22.0
-offset_right = 363.0
+offset_right = 373.0
 offset_bottom = 15.0
 scale = Vector2(1.30124, 1.30124)
 theme_override_fonts/normal_font = ExtResource("3_rwihj")
