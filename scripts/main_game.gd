@@ -11,9 +11,7 @@ func spawn_enemy():
 		new_enemy = ENEMY.instantiate()
 	
 	%EnemySpawnLocation.progress_ratio = randf()
-	
 	new_enemy.global_position = %EnemySpawnLocation.global_position
-	
 	add_child(new_enemy)
 
 func _process(delta: float) -> void:
@@ -21,7 +19,6 @@ func _process(delta: float) -> void:
 	%WeaponProgressBar.set_laser_progress(%Player.get_laser_progress())
 
 func _on_player_health_depleted() -> void:
-	#get_tree().paused = true
 	get_tree().change_scene_to_file("res://scenes/game_over.tscn")
 
 

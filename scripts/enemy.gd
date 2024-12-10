@@ -23,7 +23,7 @@ func _process(delta: float) -> void:
 	if current_glow > 0.0:
 		current_glow -= GLOW_STEP * delta
 		if current_glow < 0.0:
-			current_glow = 0.0		
+			current_glow = 0.0
 
 func _physics_process(delta: float) -> void:
 	var direction = global_position.direction_to(player.global_position)
@@ -34,7 +34,6 @@ func _physics_process(delta: float) -> void:
 	if dir_normalized != Vector2.ZERO:
 		%EnemyAnimationTree.set("parameters/Walk/blend_position", dir_normalized)
 	
-	#move_and_collide(velocity * delta)
 	move_and_slide()
 
 func take_damage(dmg: int) -> void:

@@ -45,7 +45,6 @@ func _physics_process(delta: float) -> void:
 	velocity = direction * SPEED
 	
 	var dir_normalized = direction.normalized()
-	
 	if dir_normalized != Vector2.ZERO:
 		%PlayerAnimationTree.set("parameters/Idle/blend_position", dir_normalized)
 		
