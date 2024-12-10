@@ -18,10 +18,13 @@ class BulletShooter:
 	var remaining_time = 0
 	var wand: Sprite2D
 	var shooting_point: Marker2D
+	var audio: AudioStreamPlayer2D
+	var shoot_sound = preload("res://assets/music/shoot.mp3")
 	
-	func _init(wand: Sprite2D, shooting_point: Marker2D) -> void:
+	func _init(wand: Sprite2D, shooting_point: Marker2D, audio: AudioStreamPlayer2D) -> void:
 		self.wand = wand
 		self.shooting_point = shooting_point
+		self.audio = audio
 	
 	func _process(delta):
 		if remaining_time > 0:
@@ -32,6 +35,10 @@ class BulletShooter:
 	func shoot():
 		if remaining_time != 0:
 			return
+
+		audio.stream = shoot_sound
+		audio.play()
+
 		self.remaining_time = SHOOTING_TIME
 		self.wand.scale = Vector2(0.650, 0.3)
 	
@@ -87,7 +94,7 @@ class LaserShooter:
 		return 1 - (self.remaining_time / SHOOTING_TIME)
 
 func _ready() -> void:
-	self.bullet_shooter = BulletShooter.new(%WandSprite, %ShootingPoint)
+	self.bullet_shooter = BulletShooter.new(%WandSprite, %ShootingPoint, %AudioStreamPlayer2D)
 	self.laser_shooter = LaserShooter.new(%WandSprite, %ShootingPoint)
 
 func _process(delta: float) -> void:
